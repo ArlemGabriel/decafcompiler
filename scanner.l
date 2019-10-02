@@ -1,58 +1,63 @@
 %option noyywrap
 %{
-int rowNum =0;
+    #include "funciones.h"
+    int rowNum =0;
+    int columnNum =0;
 %}
-CLASS ^class$
-VOID ^void$
-STRING ^string$
-THIS ^this$
-WHILE ^while$
-BREAK ^break$
-READINTEGER ^ReadInteger$
-INT ^int$
-EXTENDS ^extends$
-IF ^if$
-NEW ^New$
-READLINE ^ReadLine$
-DOUBLE ^double$
-INTERFACE ^interface$
-IMPLEMENTS ^implements$
-ELSE ^else$
-NEWARRAY ^NewArray$
-TRUE ^true$
-BOOL ^bool$
-NULL ^null$
-FOR ^for$
-RETURN ^return$
-PRINT ^Print$
-FALSE ^false$
-ID ^[a-zA-Z]{1}[a-zA-Z|0-9|_]{0,30}$
+CLASS class
+VOID void
+STRING string
+THIS this
+WHILE while
+BREAK break
+READINTEGER ReadInteger
+INT int
+EXTENDS extends
+IF if
+NEW New
+READLINE ReadLine
+DOUBLE double
+INTERFACE interface
+IMPLEMENTS implements
+ELSE else
+NEWARRAY NewArray
+TRUE true
+BOOL bool
+NULL null
+FOR for
+RETURN return
+PRINT Print
+FALSE false
+ID [a-zA-Z]{1}[a-zA-Z|0-9|_]{0,30}
+
 %%
-{CLASS} {printf("Tipo: KEYWORD");}
-{VOID} {printf("Tipo: KEYWORD");}
-{STRING} {printf("Tipo: KEYWORD");}
-{THIS} {printf("Tipo: KEYWORD");}
-{WHILE} {printf("Tipo: KEYWORD");}
-{BREAK} {printf("Tipo: KEYWORD");}
-{READINTEGER} {printf("Tipo: KEYWORD");}
-{INT} {printf("Tipo: KEYWORD");}
-{EXTENDS} {printf("Tipo: KEYWORD");}
-{IF} {printf("Tipo: KEYWORD");}
-{NEW} {printf("Tipo: KEYWORD");}
-{READLINE} {printf("Tipo: KEYWORD");}
-{DOUBLE} {printf("Tipo: KEYWORD");}
-{INTERFACE} {printf("Tipo: KEYWORD");}
-{IMPLEMENTS} {printf("Tipo: KEYWORD");}
-{ELSE} {printf("Tipo: KEYWORD");}
-{NEWARRAY} {printf("Tipo: KEYWORD");}
-{TRUE} {printf("Tipo: KEYWORD");}
-{BOOL} {printf("Tipo: KEYWORD");}
-{NULL} {printf("Tipo: KEYWORD");}
-{FOR} {printf("Tipo: KEYWORD");}
-{RETURN} {printf("Tipo: KEYWORD");}
-{PRINT} {printf("Tipo: KEYWORD");}
-{FALSE} {printf("Tipo: KEYWORD");}
-{ID}    {printf("Tipo: Identificador");}
+{CLASS} {agregarfila(1,1,"CLASS"," ");}
+{VOID} {printf("Tipo: KEYWORD\n");}
+{STRING} {printf("Tipo: KEYWORD\n");}
+{THIS} {printf("Tipo: KEYWORD\n");}
+{WHILE} {printf("Tipo: KEYWORD\n");}
+{BREAK} {printf("Tipo: KEYWORD\n");}
+{READINTEGER} {printf("Tipo: KEYWORD\n");}
+{INT} {printf("Tipo: KEYWORD\n");}
+{EXTENDS} {printf("Tipo: KEYWORD\n");}
+{IF} {printf("Tipo: KEYWORD\n");}
+{NEW} {printf("Tipo: KEYWORD\n");}
+{READLINE} {printf("Tipo: KEYWORD\n");}
+{DOUBLE} {printf("Tipo: KEYWORD\n");}
+{INTERFACE} {printf("Tipo: KEYWORD\n");}
+{IMPLEMENTS} {printf("Tipo: KEYWORD\n");}
+{ELSE} {printf("Tipo: KEYWORD\n");}
+{NEWARRAY} {printf("Tipo: KEYWORD\n");}
+{TRUE} {printf("Tipo: KEYWORD\n");}
+{BOOL} {printf("Tipo: KEYWORD\n");}
+{NULL} {printf("Tipo: KEYWORD\n");}
+{FOR} {printf("Tipo: KEYWORD\n");}
+{RETURN} {printf("Tipo: KEYWORD\n");}
+{PRINT} {printf("Tipo: KEYWORD\n");}
+{FALSE} {printf("Tipo: KEYWORD\n");}
+{ID}    {printf("Tipo: Identificador\n");}
+\n {rowNum++;}
+<<EOF>> {printf("FINAL");}
 %%
 int main(){
     yylex();
