@@ -2,7 +2,7 @@
 %{
     #include "funciones.h"
     int lineNum =0;
-    int posNum =0;
+    int columnNum =0;
 %}
 CLASS class
 VOID void
@@ -29,14 +29,17 @@ RETURN return
 PRINT Print
 FALSE false
 ID [a-zA-Z]{1}[a-zA-Z|0-9|_]{0,30}
-INTEGERDEC [0-9]+
-INTEGERHEX 0[xX][a-fA-F0-9]+
-DOUBLEDEC [0-9]+.[0-9]+
-DOUBLECIEN [0-9]+.[Ee](([+]{0,1})|-)[0-9]+
+CONSINTEGERDEC [0-9]+
+CONSINTEGERHEX 0[xX][a-fA-F0-9]+
+CONSDOUBLEDEC [0-9]+.[0-9]+
+CONSDOUBLECIEN [0-9]+.[Ee](([+]{0,1})|-)[0-9]+
+CONSBOOLEAN [True|False]
+LINECOMMENT "//"[^\n]*
+OPERATOR "+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|"."|"["|"]"|"("|")"|"{"|"}"
 BLANKSPACE [ ]+
 LINEBREAK \n
 TAB \t
-BOOLEAN [True|False]
+
 %%
 {CLASS} {agregarfila(1,1,"CLASS"," ");}
 {VOID} {printf("Tipo: KEYWORD\n");}
@@ -63,13 +66,15 @@ BOOLEAN [True|False]
 {PRINT} {printf("Tipo: KEYWORD\n");}
 {FALSE} {printf("Tipo: KEYWORD\n");}
 {ID}    {printf("Tipo: Identificador\n");}
-{INTEGERHEX}    {printf("Tipo: INTEGER HEXADECIMAL\n");}
-{INTEGERDEC}    {printf("Tipo: INTEGER DECIMAL\n");}
-{BOOLEAN} {printf("Tipo: BOOLEAN\n");}
-{DOUBLEDEC} {printf("Tipo: DOUBLE DECIMALn");}
-{DOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC\n");}
+{CONSINTEGERHEX}    {printf("Tipo: INTEGER HEXADECIMAL\n");}
+{CONSINTEGERDEC}    {printf("Tipo: INTEGER DECIMAL\n");}
+{CONSBOOLEAN} {printf("Tipo: BOOLEAN\n");}
+{CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL\n");}
+{CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC\n");}
+{LINECOMMENT} {printf("Tipo: SINGLE COMMENT\n");}
 {LINEBREAK} {lineNum++;}
 {BLANKSPACE} /*Ignorar espacios en blanco*/
+{OPERATOR} {printf("Tipo: OPERATORS\n");}
 {TAB} /*Ignorar tabs*/
 
 %%
