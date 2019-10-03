@@ -33,8 +33,10 @@ CONSINTEGERDEC [0-9]+
 CONSINTEGERHEX 0[xX][a-fA-F0-9]+
 CONSDOUBLEDEC [0-9]+.[0-9]+
 CONSDOUBLECIEN [0-9]+.[Ee](([+]{0,1})|-)[0-9]+
+CONSSTRING \"([^"\\\n]*)\"|\"([^"\n]*)\"
 CONSBOOLEAN [True|False]
-LINECOMMENT "//"[^\n]*
+SINGLECOMMENT "//"[^\n]*
+MULTICOMMENT \/\*([^*]|(\*+[^*/]))*\*+\/
 OPERATOR "+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|"."|"["|"]"|"("|")"|"{"|"}"
 BLANKSPACE [ ]+
 LINEBREAK \n
@@ -71,7 +73,9 @@ TAB \t
 {CONSBOOLEAN} {printf("Tipo: BOOLEAN\n");}
 {CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL\n");}
 {CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC\n");}
-{LINECOMMENT} {printf("Tipo: SINGLE COMMENT\n");}
+{CONSSTRING} {printf("Tipo: STRING\n");}
+{MULTICOMMENT} {"Tipo: MULTIPLE LINES COMMENT\n";}
+{SINGLECOMMENT} {printf("Tipo: SINGLE COMMENT\n");}
 {LINEBREAK} {lineNum++;}
 {BLANKSPACE} /*Ignorar espacios en blanco*/
 {OPERATOR} {printf("Tipo: OPERATORS\n");}
