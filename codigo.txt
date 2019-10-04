@@ -1,7 +1,5 @@
-//Este es mi primer comentario
-void miclase (){
-    /*Mi comentario
-    de multiples lineas*/
-    int x = 0;
-    bool z = 0.90;
+class Hello {
+	void main() {
+		Print("Hello world\n");
+  }
 }
