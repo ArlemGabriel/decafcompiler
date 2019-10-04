@@ -28,11 +28,11 @@ void imprimirtabla()
 
     if(tamlinea==tamcolumna && tamcolumna==tamtoken && tamtoken==tamvalor){
 
-        printf("%-10s%-10s%-10s%-10s%%\n", "LINE", "COLUMN", "TOKEN", "VALUE");
+        printf("%-8s%-8s%-16s%-8s\n", "LINE", "COLUMN", "TOKEN", "VALUE");
 
         for(int i=0;i<linea.size();i++)
         {
-            printf("%-10d%-10d%-10s%-10s\n",linea[i],columna[i],token[i].c_str(),valor[i].c_str());
+            printf("%-8d%-8d%-16s%-8s\n",linea[i],columna[i],token[i].c_str(),valor[i].c_str());
         }
     }else{
         std::cout << "ERROR: No existe la misma cantidad de filas y columnas";

@@ -38,48 +38,94 @@ CONSSTRING \"([^"\\\n]*)\"|\"([^"\n]*)\"
 CONSBOOLEAN [True|False]
 SINGLECOMMENT \/\/[^\n]+
 MULTICOMMENT \/\*([^*]|(\*+[^*/]))*\*+\/
-OPERATOR "+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|"."|"["|"]"|"("|")"|"{"|"}"
+SUM "+"
+SUBTRACTION "-"
+MULTIPLICATION "*"
+DIVISION "/"
+MODULE "%"
+LESSTHAN "<"
+LESSEQUALTHAN "<="
+GREATERTHAN ">"
+GREATEREQUALTHAN ">="
+EQUAL "="
+EEQUAL "=="
+DISTINCT "!="
+AND "&&"
+OR "||"
+NEGATION "!"
+SEMICOLON ";"
+COMMA ","
+DOT "."
+LBRACKET "["
+RBRACKET "]"
+LPAREN "("
+RPAREN ")"
+LBRACE "{"
+RBRACE "}"
 BLANKSPACE [ ]+
 LINEBREAK \n
 TAB \t
 
 %%
-{CLASS} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"CLASS",yytext);yycolumn+=yyleng;}
-{VOID} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"VOID",yytext);yycolumn+=yyleng;}
-{STRING} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"STRING",yytext);yycolumn+=yyleng;}
-{THIS} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"THIS",yytext);yycolumn+=yyleng;}
-{WHILE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"WHILE",yytext);yycolumn+=yyleng;}
-{BREAK} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"BREAK",yytext);yycolumn+=yyleng;}
-{READINTEGER} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"READINTEGER",yytext);yycolumn+=yyleng;}
-{INT} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"INT",yytext);yycolumn+=yyleng;}
-{EXTENDS} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"EXTENDS",yytext);yycolumn+=yyleng;}
-{IF} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"IF",yytext);yycolumn+=yyleng;}
-{NEW} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"NEW",yytext);yycolumn+=yyleng;}
-{READLINE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"READLINE",yytext);yycolumn+=yyleng;}
-{DOUBLE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"DOUBLE",yytext);yycolumn+=yyleng;}
-{INTERFACE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"INTERFACE",yytext);yycolumn+=yyleng;}
-{IMPLEMENTS} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"IMPLEMENTS",yytext);yycolumn+=yyleng;}
-{ELSE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"ELSE",yytext);yycolumn+=yyleng;}
-{NEWARRAY} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"NEWARRAY",yytext);yycolumn+=yyleng;}
-{TRUE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"TRUE",yytext);yycolumn+=yyleng;}
-{BOOL} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"BOOL",yytext);yycolumn+=yyleng;}
-{NULL} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"NULL",yytext);yycolumn+=yyleng;}
-{FOR} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"FOR",yytext);yycolumn+=yyleng;}
-{RETURN} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"RETURN",yytext);yycolumn+=yyleng;}
-{PRINT} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"PRINT",yytext);yycolumn+=yyleng;}
-{FALSE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"FALSE",yytext);yycolumn+=yyleng;}
-{ID}    {printf("Tipo: Identificador%d\n",yycolumn);agregarfila(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;}
-{CONSINTEGERHEX}    {printf("Tipo: INTEGER HEXADECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;}
-{CONSINTEGERDEC}    {printf("Tipo: INTEGER DECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;}
-{CONSBOOLEAN} {printf("Tipo: BOOLEAN%d\n",yycolumn);agregarfila(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;}
-{CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;}
-{CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC%d\n",yycolumn);agregarfila(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;}
-{CONSSTRING} {printf("Tipo: STRING%d\n",yycolumn);agregarfila(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;}
-{MULTICOMMENT} {printf("Tipo: MULTIPLE LINES COMMENT%d\n",yycolumn);agregarfila(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
-{SINGLECOMMENT} {printf("Tipo: SINGLE LINE COMMENT%d\n",yycolumn);agregarfila(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
+{CLASS} {agregarfila(yylineno,yycolumn,"CLASS","");yycolumn+=yyleng;}
+{VOID} {agregarfila(yylineno,yycolumn,"VOID","");yycolumn+=yyleng;}
+{STRING} {agregarfila(yylineno,yycolumn,"STRING","");yycolumn+=yyleng;}
+{THIS} {agregarfila(yylineno,yycolumn,"THIS","");yycolumn+=yyleng;}
+{WHILE} {agregarfila(yylineno,yycolumn,"WHILE","");yycolumn+=yyleng;}
+{BREAK} {agregarfila(yylineno,yycolumn,"BREAK","");yycolumn+=yyleng;}
+{READINTEGER} {agregarfila(yylineno,yycolumn,"READINTEGER","");yycolumn+=yyleng;}
+{INT} {agregarfila(yylineno,yycolumn,"INT","");yycolumn+=yyleng;}
+{EXTENDS} {agregarfila(yylineno,yycolumn,"EXTENDS","");yycolumn+=yyleng;}
+{IF} {agregarfila(yylineno,yycolumn,"IF","");yycolumn+=yyleng;}
+{NEW} {agregarfila(yylineno,yycolumn,"NEW","");yycolumn+=yyleng;}
+{READLINE} {agregarfila(yylineno,yycolumn,"READLINE","");yycolumn+=yyleng;}
+{DOUBLE} {agregarfila(yylineno,yycolumn,"DOUBLE","");yycolumn+=yyleng;}
+{INTERFACE} {agregarfila(yylineno,yycolumn,"INTERFACE","");yycolumn+=yyleng;}
+{IMPLEMENTS} {agregarfila(yylineno,yycolumn,"IMPLEMENTS","");yycolumn+=yyleng;}
+{ELSE} {agregarfila(yylineno,yycolumn,"ELSE","");yycolumn+=yyleng;}
+{NEWARRAY} {agregarfila(yylineno,yycolumn,"NEWARRAY","");yycolumn+=yyleng;}
+{TRUE} {agregarfila(yylineno,yycolumn,"TRUE","");yycolumn+=yyleng;}
+{BOOL} {agregarfila(yylineno,yycolumn,"BOOL","");yycolumn+=yyleng;}
+{NULL} {agregarfila(yylineno,yycolumn,"NULL","");yycolumn+=yyleng;}
+{FOR} {agregarfila(yylineno,yycolumn,"FOR","");yycolumn+=yyleng;}
+{RETURN} {agregarfila(yylineno,yycolumn,"RETURN","");yycolumn+=yyleng;}
+{PRINT} {agregarfila(yylineno,yycolumn,"PRINT","");yycolumn+=yyleng;}
+{FALSE} {agregarfila(yylineno,yycolumn,"FALSE","");yycolumn+=yyleng;}
+{ID}    {agregarfila(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;}
+{CONSINTEGERHEX}    {agregarfila(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;}
+{CONSINTEGERDEC}    {agregarfila(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;}
+{CONSBOOLEAN} {agregarfila(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;}
+{CONSDOUBLEDEC} {agregarfila(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;}
+{CONSDOUBLECIEN} {agregarfila(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;}
+{CONSSTRING} {agregarfila(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;}
+{MULTICOMMENT} {agregarfila(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
+{SINGLECOMMENT} {agregarfila(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
+{SUM} {agregarfila(yylineno,yycolumn,"SUM","");yycolumn+=yyleng;}
+{SUBTRACTION} {agregarfila(yylineno,yycolumn,"SUBTRACTION","");yycolumn+=yyleng;}
+{MULTIPLICATION} {agregarfila(yylineno,yycolumn,"MULTIPLICATION","");yycolumn+=yyleng;}
+{DIVISION} {agregarfila(yylineno,yycolumn,"DIVISION","");yycolumn+=yyleng;}
+{MODULE} {agregarfila(yylineno,yycolumn,"MODULE","");yycolumn+=yyleng;}
+{LESSTHAN} {agregarfila(yylineno,yycolumn,"LESSTHAN","");yycolumn+=yyleng;}
+{LESSEQUALTHAN} {agregarfila(yylineno,yycolumn,"LESSEQTHAN","");yycolumn+=yyleng;}
+{GREATERTHAN} {agregarfila(yylineno,yycolumn,"GREATERTHAN","");yycolumn+=yyleng;}
+{GREATEREQUALTHAN} {agregarfila(yylineno,yycolumn,"GREATEREQTHAN","");yycolumn+=yyleng;}
+{EQUAL} {agregarfila(yylineno,yycolumn,"EQUAL","");yycolumn+=yyleng;}
+{EEQUAL} {agregarfila(yylineno,yycolumn,"EEQUAL","");yycolumn+=yyleng;}
+{DISTINCT} {agregarfila(yylineno,yycolumn,"DISTINCT","");yycolumn+=yyleng;}
+{AND} {agregarfila(yylineno,yycolumn,"AND","");yycolumn+=yyleng;}
+{OR} {agregarfila(yylineno,yycolumn,"OR","");yycolumn+=yyleng;}
+{NEGATION} {agregarfila(yylineno,yycolumn,"NEGATION","");yycolumn+=yyleng;}
+{SEMICOLON} {agregarfila(yylineno,yycolumn,"SEMICOLON","");yycolumn+=yyleng;}
+{COMMA} {agregarfila(yylineno,yycolumn,"COMMA","");yycolumn+=yyleng;}
+{DOT} {agregarfila(yylineno,yycolumn,"DOT","");yycolumn+=yyleng;}
+{LBRACKET} {agregarfila(yylineno,yycolumn,"LBRACKET","");yycolumn+=yyleng;}
+{RBRACKET} {agregarfila(yylineno,yycolumn,"RBRACKET","");yycolumn+=yyleng;}
+{LPAREN} {agregarfila(yylineno,yycolumn,"LPAREN","");yycolumn+=yyleng;}
+{RPAREN} {agregarfila(yylineno,yycolumn,"RPAREN","");yycolumn+=yyleng;}
+{LBRACE} {agregarfila(yylineno,yycolumn,"LBRACE","");yycolumn+=yyleng;}
+{RBRACE} {agregarfila(yylineno,yycolumn,"RBRACE","");yycolumn+=yyleng;}
 {LINEBREAK} {yycolumn=1;}
 {BLANKSPACE} {yycolumn+=1;}
-{OPERATOR} {printf("Tipo: OPERATORS%d\n",yycolumn);agregarfila(yylineno,yycolumn,"OPERATOR",yytext);yycolumn+=yyleng;}
 {TAB} {yycolumn+=1;}
 
 %%
