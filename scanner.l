@@ -1,7 +1,8 @@
 %option noyywrap
+%option yylineno
+%option yyalloc
 %{
     #include "funciones.h"
-    int lineNum =0;
     int columnNum =0;
 %}
 CLASS class
@@ -35,7 +36,7 @@ CONSDOUBLEDEC [0-9]+.[0-9]+
 CONSDOUBLECIEN [0-9]+.[Ee](([+]{0,1})|-)[0-9]+
 CONSSTRING \"([^"\\\n]*)\"|\"([^"\n]*)\"
 CONSBOOLEAN [True|False]
-SINGLECOMMENT "//"[^\n]*
+SINGLECOMMENT \/\/[^\n]+
 MULTICOMMENT \/\*([^*]|(\*+[^*/]))*\*+\/
 OPERATOR "+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|"."|"["|"]"|"("|")"|"{"|"}"
 BLANKSPACE [ ]+
@@ -43,7 +44,7 @@ LINEBREAK \n
 TAB \t
 
 %%
-{CLASS} {agregarfila(1,1,"CLASS"," ");}
+{CLASS} {printf("Tipo: KEYWORD\n");}
 {VOID} {printf("Tipo: KEYWORD\n");}
 {STRING} {printf("Tipo: KEYWORD\n");}
 {THIS} {printf("Tipo: KEYWORD\n");}
@@ -74,14 +75,22 @@ TAB \t
 {CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL\n");}
 {CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC\n");}
 {CONSSTRING} {printf("Tipo: STRING\n");}
-{MULTICOMMENT} {"Tipo: MULTIPLE LINES COMMENT\n";}
-{SINGLECOMMENT} {printf("Tipo: SINGLE COMMENT\n");}
-{LINEBREAK} {lineNum++;}
+{MULTICOMMENT} {printf("Tipo: MULTIPLE LINES COMMENT\n");}
+{SINGLECOMMENT} {printf("Tipo: SINGLE LINE COMMENT\n");yyalloc.last_column;}
+{LINEBREAK} /*Ignorar saltos de linea*/
 {BLANKSPACE} /*Ignorar espacios en blanco*/
 {OPERATOR} {printf("Tipo: OPERATORS\n");}
 {TAB} /*Ignorar tabs*/
 
 %%
-int main(){
+int main(int argcount, char **argvector)
+{
+    if (argcount == 2)
+    {
+        yyin=fopen(argvector[1],"r");
+    }
+    else{
+        yyin=stdin;
+    }
     yylex();
 }
