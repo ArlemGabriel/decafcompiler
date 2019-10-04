@@ -33,7 +33,7 @@ ID [a-zA-Z]{1}[a-zA-Z|0-9|_]{0,30}
 CONSINTEGERDEC [0-9]+
 CONSINTEGERHEX 0[xX][a-fA-F0-9]+
 CONSDOUBLEDEC [0-9]+.[0-9]+
-CONSDOUBLECIEN [0-9]+.[Ee](([+]{0,1})|-)[0-9]+
+CONSDOUBLECIEN [0-9]+.[0-9]*[Ee](([+]{0,1})|-)[0-9]+
 CONSSTRING \"([^"\\\n]*)\"|\"([^"\n]*)\"
 CONSBOOLEAN [True|False]
 SINGLECOMMENT \/\/[^\n]+
@@ -69,11 +69,11 @@ TAB \t
 {PRINT} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"PRINT",yytext);yycolumn+=yyleng;}
 {FALSE} {printf("Tipo: KEYWORD%d\n",yycolumn);agregarfila(yylineno,yycolumn,"FALSE",yytext);yycolumn+=yyleng;}
 {ID}    {printf("Tipo: Identificador%d\n",yycolumn);agregarfila(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;}
-{CONSINTEGERHEX}    {printf("Tipo: INTEGER HEXADECIMAL\n");}
-{CONSINTEGERDEC}    {printf("Tipo: INTEGER DECIMAL%d\n",yycolumn);yycolumn+=yyleng;}
-{CONSBOOLEAN} {printf("Tipo: BOOLEAN\n");}
-{CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL%d\n",yycolumn);yycolumn+=yyleng;}
-{CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC\n");}
+{CONSINTEGERHEX}    {printf("Tipo: INTEGER HEXADECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;}
+{CONSINTEGERDEC}    {printf("Tipo: INTEGER DECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;}
+{CONSBOOLEAN} {printf("Tipo: BOOLEAN%d\n",yycolumn);agregarfila(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;}
+{CONSDOUBLEDEC} {printf("Tipo: DOUBLE DECIMAL%d\n",yycolumn);agregarfila(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;}
+{CONSDOUBLECIEN} {printf("Tipo: DOUBLE CIENTIFIC%d\n",yycolumn);agregarfila(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;}
 {CONSSTRING} {printf("Tipo: STRING%d\n",yycolumn);agregarfila(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;}
 {MULTICOMMENT} {printf("Tipo: MULTIPLE LINES COMMENT%d\n",yycolumn);agregarfila(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
 {SINGLECOMMENT} {printf("Tipo: SINGLE LINE COMMENT%d\n",yycolumn);agregarfila(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
@@ -93,4 +93,5 @@ int main(int argcount, char **argvector)
         yyin=stdin;
     }
     yylex();
+    imprimirtabla();
 }
