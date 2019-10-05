@@ -68,7 +68,7 @@ RBRACE "}"
 BLANKSPACE [ ]+
 LINEBREAK \n
 TAB \t
-
+INVALIDCHAR [.]*
 %%
 {CLASS} {addRow(yylineno,yycolumn,"CLASS","");yycolumn+=yyleng;}
 {VOID} {addRow(yylineno,yycolumn,"VOID","");yycolumn+=yyleng;}
@@ -127,12 +127,13 @@ TAB \t
 {RPAREN} {addRow(yylineno,yycolumn,"RPAREN","");yycolumn+=yyleng;}
 {LBRACE} {addRow(yylineno,yycolumn,"LBRACE","");yycolumn+=yyleng;}
 {RBRACE} {addRow(yylineno,yycolumn,"RBRACE","");yycolumn+=yyleng;}
-{ESCAPEERROR} {addError(yylineno,yycolumn,"Ilegal scape secuence");}
+{ESCAPEERROR} {addError(yylineno,yycolumn,"Invalid scape secuence");}
 {LQUOTEERROR} {addError(yylineno,yycolumn,"Missing left quote");}
 {RQUOTEERROR} {addError(yylineno,yycolumn,"Missing right quote");}
 {LINEBREAK} {yycolumn=1;}
 {BLANKSPACE} {yycolumn+=1;}
 {TAB} {yycolumn+=1;}
+.   addError(yylineno,yycolumn,"Invalid character");
 
 %%
 int main(int argcount, char **argvector)
