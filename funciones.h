@@ -6,39 +6,62 @@
 #include "stdio.h"
 
 using namespace std;
-std::vector<int> linea;
-std::vector<int> columna;
+std::vector<int> row;
+std::vector<int> column;
 std::vector<string> token;
-std::vector<string> valor;
+std::vector<string> value;
+std::vector<string> errors;
+std::vector<int> columnerrors;
+std::vector<int> rowerrors;
+int errorssize;
 
-void agregarfila(int plinea,int pcolumna,string ptoken,string pvalor)
+void addRow(int prow,int pcolumn,string ptoken,string pvalue)
 {
-    linea.push_back(plinea);
-    columna.push_back(pcolumna);
+    row.push_back(prow);
+    column.push_back(pcolumn);
     token.push_back(ptoken);
-    valor.push_back(pvalor);
+    value.push_back(pvalue);
 }
 
-void imprimirtabla()
+void printErrors()
 {
-    int tamlinea = linea.size();
-    int tamcolumna = columna.size();
-    int tamtoken = token.size();
-    int tamvalor = valor.size();
+    for(int i=0;i<errorssize;i++)
+    {
+        std::cout << "ERROR: " << errors[i] << " on line:" << rowerrors[i] << " column:" << columnerrors[i]<<" \n";
+    }
+}
 
-    if(tamlinea==tamcolumna && tamcolumna==tamtoken && tamtoken==tamvalor){
+void printTable()
+{
+    int rowssize = row.size();
+    int columnssize = column.size();
+    int tokenssize = token.size();
+    int valuessize = value.size();
+    errorssize = errors.size();
+    if(rowssize==columnssize && columnssize==tokenssize && tokenssize==valuessize){
+        if(rowssize!=0){
+          if(errorssize==0){
+              printf("%-8s%-8s%-16s%-8s\n", "LINE", "COLUMN", "TOKEN", "VALUE");
+              for(int i=0;i<row.size();i++)
+              {
+                  printf("%-8d%-8d%-16s%-8s\n",row[i],column[i],token[i].c_str(),value[i].c_str());
+              }
+          }else{
+            printErrors();
+          }
 
-        printf("%-8s%-8s%-16s%-8s\n", "LINE", "COLUMN", "TOKEN", "VALUE");
-
-        for(int i=0;i<linea.size();i++)
-        {
-            printf("%-8d%-8d%-16s%-8s\n",linea[i],columna[i],token[i].c_str(),valor[i].c_str());
         }
     }else{
-        std::cout << "ERROR: No existe la misma cantidad de filas y columnas";
+        std::cout << "ERROR: It doesnt exist the same size of rows and columns";
     }
 
 }
+void addError(int pRow,int pColumn,string pError){
+    errors.push_back(pError);
+    rowerrors.push_back(pRow);
+    columnerrors.push_back(pColumn);
+}
+
 
 
 
