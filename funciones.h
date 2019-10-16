@@ -64,13 +64,13 @@ void addError(int pRow,int pColumn,string pError){
 }
 
 
-
+/*
 class NodeParseTree
 {
 public:
 	NodeParseTree()
 	{
-		hizq = NULL;		
+		parent = NULL;		
 
 		token = "NULL";
         value = "NULL";
@@ -80,7 +80,7 @@ public:
 
 	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
 	{
-		hizq = NULL;		
+		parent = NULL;		
 
 		token = pToken;
 		value = pValue;
@@ -93,6 +93,7 @@ public:
 
     int row;
     int column;
+    NodeParseTree *parent;
 	vector<NodeParseTree> *childs;
 
 };
@@ -112,14 +113,14 @@ public:
 		return rootTree == NULL;
 	}
 
-	void newNode(string pCedula, string pNombre, string pDireccion, string pTel);		
+	void newNode(string pToken, string pValue, int pRow, int pColumn);		
 	pNodeParseTree rootTree;
 	
 
 private:
 	pNodeParseTree actual;
 };
-
+*/
 
 
 #endif // FUNCIONES_H_INCLUDED
