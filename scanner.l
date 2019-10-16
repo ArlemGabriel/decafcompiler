@@ -101,9 +101,9 @@ INVALIDCHAR [.]*
 {CONSBOOLEAN} {addRow(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;return CONSBOOLEAN;}
 {CONSDOUBLEDEC} {addRow(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLEDEC;}
 {CONSDOUBLECIEN} {addRow(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLECIEN;}
-{CONSSTRING} {addRow(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;}
+{CONSSTRING} {addRow(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;return CONSSTRING;}
 {MULTICOMMENT} {addRow(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
-{SINGLECOMMENT} {addRow(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;return SINGLECOMMENT;}
+{SINGLECOMMENT} {addRow(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
 {SUM} {addRow(yylineno,yycolumn,"SUM","");yycolumn+=yyleng;return SUM;}
 {SUBTRACTION} {addRow(yylineno,yycolumn,"SUBTRACTION","");yycolumn+=yyleng;return SUBTRACTION;}
 {MULTIPLICATION} {addRow(yylineno,yycolumn,"MULTIPLICATION","");yycolumn+=yyleng;return MULTIPLICATION;}
