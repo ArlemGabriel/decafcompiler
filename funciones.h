@@ -70,7 +70,7 @@ class NodeParseTree
 public:
 	NodeParseTree()
 	{
-		hizq = NULL;		
+		hizq = NULL;
 
 		token = "NULL";
         value = "NULL";
@@ -80,7 +80,7 @@ public:
 
 	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
 	{
-		hizq = NULL;		
+		hizq = NULL;
 
 		token = pToken;
 		value = pValue;
@@ -112,9 +112,9 @@ public:
 		return rootTree == NULL;
 	}
 
-	void newNode(string pCedula, string pNombre, string pDireccion, string pTel);		
+	void newNode(string pCedula, string pNombre, string pDireccion, string pTel);
 	pNodeParseTree rootTree;
-	
+
 
 private:
 	pNodeParseTree actual;
