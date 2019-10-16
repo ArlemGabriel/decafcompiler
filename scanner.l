@@ -1,9 +1,9 @@
 %option noyywrap
 %option yylineno
 %option yyalloc
-%{    
+%{
     #include "funciones.h"
-    #include "parser.tab.h"  
+    #include "parser.tab.h"
     int yycolumn = 1;
 %}
 ESCAPEERROR \"[^"\\\n]*((?:\\[^nt"][^"\\]*)|(?:\\\\[^"\\\n]*))*\"
@@ -69,7 +69,7 @@ RBRACE "}"
 BLANKSPACE [ ]+
 LINEBREAK \n
 TAB \t
-INVALIDCHAR [.]*
+INVALIDCHAR ['|`|!|@|#|^|&|"|"|\|:|?]{1}
 %%
 {CLASS} {addRow(yylineno,yycolumn,"CLASS","");yycolumn+=yyleng;return CLASS;}
 {VOID} {addRow(yylineno,yycolumn,"VOID","");yycolumn+=yyleng;return VOID;}
@@ -134,7 +134,7 @@ INVALIDCHAR [.]*
 {LINEBREAK} {yycolumn=1;}
 {BLANKSPACE} {yycolumn+=1;}
 {TAB} {yycolumn+=1;}
-.   addError(yylineno,yycolumn,"Invalid character");
+{INVALIDCHAR}   {addError(yylineno,yycolumn,"Invalid character");}
 
 %%
 /*int main(int argcount, char **argvector)
@@ -145,9 +145,9 @@ INVALIDCHAR [.]*
     }
     else{
         yyin=stdin;
-    }    
+    }
     yylex();
     printTable();
-    
+
 }
 */
