@@ -28,7 +28,7 @@ ELSE else
 NEWARRAY NewArray
 TRUE true
 BOOL bool
-NULL null
+TNULL null
 FOR for
 RETURN return
 PRINT Print
@@ -90,7 +90,7 @@ INVALIDCHAR [.]*
 {NEWARRAY} {addRow(yylineno,yycolumn,"NEWARRAY","");yycolumn+=yyleng;return NEWARRAY;}
 {TRUE} {addRow(yylineno,yycolumn,"TRUE","");yycolumn+=yyleng;return TRUE;}
 {BOOL} {addRow(yylineno,yycolumn,"BOOL","");yycolumn+=yyleng;return BOOL;}
-{NULL} {addRow(yylineno,yycolumn,"NULL","");yycolumn+=yyleng;return NULL;}
+{TNULL} {addRow(yylineno,yycolumn,"NULL","");yycolumn+=yyleng;return TNULL;}
 {FOR} {addRow(yylineno,yycolumn,"FOR","");yycolumn+=yyleng;return FOR;}
 {RETURN} {addRow(yylineno,yycolumn,"RETURN","");yycolumn+=yyleng;return RETURN;}
 {PRINT} {addRow(yylineno,yycolumn,"PRINT","");yycolumn+=yyleng;return PRINT;}
