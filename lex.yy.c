@@ -1250,7 +1250,7 @@ char *yytext;
 #line 1 "scanner.l"
 #line 5 "scanner.l"
     #include "funciones.h"
-    #include "parser.tab.h"    
+    #include "parser.tab.h"  
     int yycolumn = 1;
 #line 1256 "lex.yy.c"
 #line 1257 "lex.yy.c"

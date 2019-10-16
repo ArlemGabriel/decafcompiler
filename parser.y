@@ -3,8 +3,10 @@
 #include <iostream>
 using namespace std;
 
-extern int yylex();
+extern int yylex(void);
+extern void printTable();
 extern int yyparse();
+extern FILE *yyin;
 
 int yyerror(char *s);
 %}
@@ -39,10 +41,10 @@ int yyerror(char *s);
 Program			: Decl	{cout << "Program";}		
 				;
 		
-Decl 			: VariableDecl OtraDecl		{cout << "Decl";}		
-				| FunctionDecl OtraDecl		{cout << "Decl";}		
-				| ClassDecl OtraDecl		{cout << "Decl";}		
-				| InterfaceDecl OtraDecl	{cout << "Decl";}		
+Decl 			: VariableDecl OtraDecl		{cout << "Decl 1";}		
+				| FunctionDecl OtraDecl		{cout << "Decl 2";}		
+				| ClassDecl OtraDecl		{cout << "Decl 3";}		
+				| InterfaceDecl OtraDecl	{cout << "Decl 4";}		
 				;
 
 OtraDecl		: Decl OtraDecl				{cout << "OtraDecl";}		
@@ -55,12 +57,12 @@ VariableDecl 	: Variable SEMICOLON		{cout << "VariableDecl";}
 Variable 		: Type ID				{cout << "Variable";}		
 				;
 
-Type 			: INT			{cout << "Type";}		
-				| DOUBLE		{cout << "Type";}		
-				| BOOL			{cout << "Type";}		
-				| STRING		{cout << "Type";}		
-				| ID			{cout << "Type";}		
-				| Type LBRACKET RBRACKET	{cout << "Type";}		
+Type 			: INT			{cout << "Type int";}		
+				| DOUBLE		{cout << "Type double";}		
+				| BOOL			{cout << "Type bool";}		
+				| STRING		{cout << "Type string";}		
+				| ID			{cout << "Type id";}		
+				| Type LBRACKET RBRACKET	{cout << "Type ()";}		
 				;
 
 FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock	{cout << "FunctionDecl";}		
@@ -208,7 +210,7 @@ Constant 		: CONSINTEGERDEC	{cout << "Constant";}
 //----------------------------- Funciones -----------------------------
 
 int yyerror(char *s){
-	printf("ERROR");
+	printf("\nERROR\n");
 	return 1;
 }
 
@@ -223,7 +225,10 @@ int main(int argcount, char **argvector)
   }
   // Set Flex to read from it instead of defaulting to STDIN:
   yyin = myfile;
+
+  //yylex();  
   
   // Parse through the input:
   yyparse();
+  printTable();
 }
