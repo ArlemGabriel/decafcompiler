@@ -3,7 +3,7 @@
 %option yyalloc
 %{
     #include "funciones.h"
-    #include "y.tab.h"
+    #include "parser.tab.h"
     int yycolumn = 1;
 %}
 ESCAPEERROR \"[^"\\\n]*((?:\\[^nt"][^"\\]*)|(?:\\\\[^"\\\n]*))*\"
