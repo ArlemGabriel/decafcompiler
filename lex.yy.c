@@ -1250,7 +1250,7 @@ char *yytext;
 #line 1 "scanner.l"
 #line 5 "scanner.l"
     #include "funciones.h"
-    #include "parser.tab.h"
+    #include "parser.tab.h"    
     int yycolumn = 1;
 #line 1256 "lex.yy.c"
 #line 1257 "lex.yy.c"
@@ -1637,7 +1637,7 @@ YY_RULE_SETUP
 case 20:
 YY_RULE_SETUP
 #line 93 "scanner.l"
-{addRow(yylineno,yycolumn,"NULL","");yycolumn+=yyleng;return NULL;}
+{addRow(yylineno,yycolumn,"NULL","");yycolumn+=yyleng;return TNULL;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
@@ -1699,12 +1699,12 @@ case 32:
 /* rule 32 can match eol */
 YY_RULE_SETUP
 #line 105 "scanner.l"
-{addRow(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;return MULTICOMMENT;}
+{addRow(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 106 "scanner.l"
-{addRow(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;return SINGLECOMMENT;}
+{addRow(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
@@ -2897,7 +2897,7 @@ void yyfree (void * ptr )
 
 #line 139 "scanner.l"
 
-int main(int argcount, char **argvector)
+/*int main(int argcount, char **argvector)
 {
     if (argcount == 2)
     {
@@ -2905,8 +2905,10 @@ int main(int argcount, char **argvector)
     }
     else{
         yyin=stdin;
-    }
+    }    
     yylex();
     printTable();
+    
 }
+*/
 

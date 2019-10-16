@@ -1,12 +1,12 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
 
+using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 #include <vector>
 #include <iostream>
-#include "stdio.h"
-#include "stdlib.h"
 
-using namespace std;
 std::vector<int> row;
 std::vector<int> column;
 std::vector<string> token;
@@ -49,7 +49,6 @@ void printTable()
               }
           }else{
             printErrors();
-            exit(0);
           }
 
         }
@@ -71,11 +70,7 @@ class NodeParseTree
 public:
 	NodeParseTree()
 	{
-<<<<<<< HEAD
-		hizq = NULL;
-=======
-		parent = NULL;
->>>>>>> a52775577adac5b45cbe1135e9ccfd8bf1b675ad
+		parent = NULL;		
 
 		token = "NULL";
         value = "NULL";
@@ -85,11 +80,7 @@ public:
 
 	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
 	{
-<<<<<<< HEAD
-		hizq = NULL;
-=======
-		parent = NULL;
->>>>>>> a52775577adac5b45cbe1135e9ccfd8bf1b675ad
+		parent = NULL;		
 
 		token = pToken;
 		value = pValue;
@@ -122,18 +113,15 @@ public:
 		return rootTree == NULL;
 	}
 
-<<<<<<< HEAD
-	void newNode(string pCedula, string pNombre, string pDireccion, string pTel);
-=======
-	void newNode(string pToken, string pValue, int pRow, int pColumn);
->>>>>>> a52775577adac5b45cbe1135e9ccfd8bf1b675ad
+	void newNode(string pToken, string pValue, int pRow, int pColumn);		
 	pNodeParseTree rootTree;
-
+	
 
 private:
 	pNodeParseTree actual;
 };
 */
+
 
 
 #endif // FUNCIONES_H_INCLUDED

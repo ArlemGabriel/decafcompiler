@@ -68,7 +68,7 @@ extern int yydebug;
     NEWARRAY = 274,
     TRUE = 275,
     BOOL = 276,
-    NULL = 277,
+    TNULL = 277,
     FOR = 278,
     RETURN = 279,
     PRINT = 280,
