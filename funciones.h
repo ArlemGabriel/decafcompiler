@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "stdio.h"
+#include "stdlib.h"
 
 using namespace std;
 std::vector<int> row;
@@ -62,6 +63,62 @@ void addError(int pRow,int pColumn,string pError){
     columnerrors.push_back(pColumn);
 }
 
+
+
+class NodeParseTree
+{
+public:
+	NodeParseTree()
+	{
+		hizq = NULL;		
+
+		token = "NULL";
+        value = "NULL";
+        row = -1;
+        column = -1;
+	}
+
+	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
+	{
+		hizq = NULL;		
+
+		token = pToken;
+		value = pValue;
+		row = pRow;
+		column = pColumn;
+	}
+
+	string token;
+    string value;
+
+    int row;
+    int column;
+	vector<NodeParseTree> *childs;
+
+};
+
+typedef NodeParseTree * pNodeParseTree;
+
+class ParseTree
+{
+public:
+	ParseTree()
+	{
+		rootTree = actual = NULL;   //Constuctor
+	}
+	~ParseTree();                          //Deestructor
+	bool isVoid()
+	{
+		return rootTree == NULL;
+	}
+
+	void newNode(string pCedula, string pNombre, string pDireccion, string pTel);		
+	pNodeParseTree rootTree;
+	
+
+private:
+	pNodeParseTree actual;
+};
 
 
 

@@ -1,6 +1,9 @@
 %{
 //----------------------------- Declaraciones -----------------------------
-}%
+//#include "funciones.h"
+
+//extern int yylex();
+%}
 
 //----------------------------- Definiciones -----------------------------
 //Palabras reservadas
@@ -18,28 +21,37 @@
 //        {     }
 %token LBRACE RBRACE
 
+%left COMMA
+%left EQUAL 
+%left AND
+%left OR
+%left EEQUAL LESSTHAN LESSEQUALTHAN GREATEREQUALTHAN GREATERTHAN DISTINCT
+%left SUM SUBTRACTION
+%left MULTIPLICATION DIVISION MODULE
+%left LBRACKET LPAREN LBRACE
+
 %%
 //----------------------------- Producciones -----------------------------
-Program			: Decl
+Program			: Decl					{printf("OK");}
 				;
 		
-Decl 			: VariableDecl OtraDecl
-				| FunctionDecl OtraDecl
-				| ClassDecl OtraDecl
-				| InterfaceDecl OtraDecl
+Decl 			: VariableDecl OtraDecl		
+				| FunctionDecl OtraDecl		
+				| ClassDecl OtraDecl		
+				| InterfaceDecl OtraDecl	
 				;
 
-OtraDecl		: Decl OtraDecl
-				|
+OtraDecl		: Decl OtraDecl				
+				|							
 				;
 
-VariableDecl 	: Variable SEMICOLON
+VariableDecl 	: Variable SEMICOLON		
 				;
 
-Variable 		: Type ID
+Variable 		: Type ID					
 				;
 
-Type 			: INT
+Type 			: INT						
 				| DOUBLE
 				| BOOL
 				| STRING
@@ -98,14 +110,14 @@ BlockStmts		: Stmt BlockStmts
 				|
 				;
 
-Stmt 			: ExprOpcional SEMICOLON Stmt
-				| IfStmt Stmt
-				| WhileStmt Stmt
-				| ForStmt Stmt
-				| BreakStmt Stmt
-				| ReturnStmt Stmt
-				| PrintStmt Stmt
-				| StmtBlock Stmt
+Stmt 			: ExprOpcional SEMICOLON
+				| IfStmt
+				| WhileStmt
+				| ForStmt
+				| BreakStmt
+				| ReturnStmt
+				| PrintStmt
+				| StmtBlock
 				;
 
 IfStmt 			: IF LPAREN Expr RPAREN Stmt ElseStmt
@@ -191,4 +203,3 @@ Constant 		: CONSINTEGERDEC
 
 //----------------------------- Funciones -----------------------------
 
-int main {}
