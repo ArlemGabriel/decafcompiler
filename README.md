@@ -1,6 +1,6 @@
-# Decaf Compiler
 # Instituto Tecnológico de Costa Rica
 
+# Decaf Compiler
 Nota Importante: Para ejecutar el compilador, es recomendable contar con linux
 pues el resultado puede variar en sistemas operativos como Windows.
 
@@ -12,6 +12,6 @@ Pasos para ejecutar el Compilador del Lenguaje Decaf:
 3. Acceda a su terminal en linux
 4. Digite en su terminal cd Escritorio
 5. Digite en su terminal cd "Nombre de su carpeta"
-6. Ejecute en su terminal el comando make
-7. Posteriormente ejecute en su terminal ./compilador "nombredearchivodondetieneelcodigo"
+6. Ejecute en su terminal el comando make compilador
+7. Posteriormente ejecute en su terminal ./compilador "nombredearchivodondetieneelcodigo.txt"
 8. Se mostrará en consola el resultado del analisis léxico y sintático.
