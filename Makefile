@@ -1,11 +1,14 @@
 
-compilador:
-	lex.yy.o y.tab.o
-	g++ compilador lex.yy.o y.tab.o
+compilador:lex.yy.c parser.tab.c
+	g++ parser.tab.c lex.yy.c -o compilador
 
-lex.yy.c:
-	compilador.l y.tab.c
-	flex compilador.l
+lex.yy.c:scanner.l parser.tab.c
+	flex scanner.l
 
-y.tab.c:
-	bison -d compilador.y
+parser.tab.c:parser.y
+	bison -d parser.y
+
+clean:
+		rm -f compilador *.o
+		rm -f compilador *.c
+		rm -f compilador parser.tab.h

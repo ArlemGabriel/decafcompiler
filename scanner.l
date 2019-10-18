@@ -70,6 +70,7 @@ BLANKSPACE [ ]+
 LINEBREAK \n
 TAB \t
 INVALIDCHAR ['|`|!|@|#|^|&|"|"|\|:|?]{1}
+HOLAMUNDO "Hola"
 %%
 {CLASS} {addRow(yylineno,yycolumn,"CLASS","");yycolumn+=yyleng;return CLASS;}
 {VOID} {addRow(yylineno,yycolumn,"VOID","");yycolumn+=yyleng;return VOID;}
