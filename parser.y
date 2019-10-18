@@ -1,7 +1,14 @@
 %{
 //----------------------------- Declaraciones -----------------------------
 #include <iostream>
+#include "funcionesParser.h"
 using namespace std;
+int contNodos=0;
+typedef NodeParseTree * pNodeParseTree;
+
+pNodeParseTree nodo0 = new NodeParseTree();
+pNodeParseTree nodo1 = new NodeParseTree();
+pNodeParseTree nodo2 = new NodeParseTree();
 
 extern int yylex(void);
 extern void printTable();
@@ -35,174 +42,175 @@ int yyerror(char *s);
 %left SUM SUBTRACTION
 %left MULTIPLICATION DIVISION MODULE
 %left LBRACKET LPAREN LBRACE
+%left VOID CLASS ID
 
 %%
 //----------------------------- Producciones -----------------------------
 Program			: Decl	{cout << "Program";}		
 				;
 		
-Decl 			: VariableDecl OtraDecl		{cout << "Decl 1";}		
-				| FunctionDecl OtraDecl		{cout << "Decl 2";}		
-				| ClassDecl OtraDecl		{cout << "Decl 3";}		
-				| InterfaceDecl OtraDecl	{cout << "Decl 4";}		
+Decl 			: VariableDecl OtraDecl		{cout << "Decl 1\n";}		
+				| FunctionDecl OtraDecl		{cout << "Decl 2\n";}		
+				| ClassDecl OtraDecl		{cout << "Decl 3\n";}		
+				| InterfaceDecl OtraDecl	{cout << "Decl 4\n";}		
 				;
 
-OtraDecl		: Decl OtraDecl				{cout << "OtraDecl";}		
+OtraDecl		: Decl OtraDecl				{cout << "OtraDecl\n";}		
 				|							
 				;
 
-VariableDecl 	: Variable SEMICOLON		{cout << "VariableDecl";}		
+VariableDecl 	: Variable SEMICOLON		{cout << "VariableDecl\n";}		
 				;
 
-Variable 		: Type ID				{cout << "Variable";}		
+Variable 		: Type ID				{cout << "Variable\n";}		
 				;
 
-Type 			: INT			{cout << "Type int";}		
-				| DOUBLE		{cout << "Type double";}		
-				| BOOL			{cout << "Type bool";}		
-				| STRING		{cout << "Type string";}		
-				| ID			{cout << "Type id";}		
-				| Type LBRACKET RBRACKET	{cout << "Type ()";}		
+Type 			: INT			{cout << "Type int\n";}		
+				| DOUBLE		{cout << "Type double\n";}		
+				| BOOL			{cout << "Type bool\n";}		
+				| STRING		{printf("Type string\n");}		
+				| ID			{cout << "Type id\n";}		
+				| Type LBRACKET RBRACKET	{cout << "Type ()\n";}		
 				;
 
-FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock	{cout << "FunctionDecl";}		
-				| VOID ID LPAREN Formals RPAREN StmtBlock	{cout << "FunctionDecl";}		
+FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock	{cout << "FunctionDecl\n";}		
+				| VOID ID LPAREN Formals RPAREN StmtBlock	{cout << "FunctionDecl\n";}		
 				;
 
-Formals 		: Variable FormalsVars	{cout << "Formals";}
+Formals 		: Variable FormalsVars	{cout << "Formals\n";}
 				|
 				;
 
-FormalsVars		: COMMA Variable FormalsVars	{cout << "FormalsVars";}
+FormalsVars		: COMMA Variable FormalsVars	{cout << "FormalsVars\n";}
 				|
 				;
 
-ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE	{cout << "ClassDecl";}
+ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE	{cout << "ClassDecl\n";}
 				;
 
-ExtendDecl		: EXTENDS ID	{cout << "ExtendDecl";}
+ExtendDecl		: EXTENDS ID	{cout << "ExtendDecl\n";}
 				|
 				;
 
-ImplementsDecl	: IMPLEMENTS ID OtroID	{cout << "ImplementsDecl";}
+ImplementsDecl	: IMPLEMENTS ID OtroID	{cout << "ImplementsDecl\n";}
 				|
 				;
 
-OtroID			: COMMA ID OtroID	{cout << "OtroID";}
+OtroID			: COMMA ID OtroID	{cout << "OtroID\n";}
 				|
 				;
 
-Field 			: VariableDecl Field	{cout << "Field";}
-				| FunctionDecl Field	{cout << "Field";}
+Field 			: VariableDecl Field	{cout << "Field\n";}
+				| FunctionDecl Field	{cout << "Field\n";}
 				|
 				;
 
-InterfaceDecl	: INTERFACE ID LBRACE Prototype RBRACE	{cout << "InterfaceDecl";}
+InterfaceDecl	: INTERFACE ID LBRACE Prototype RBRACE	{cout << "InterfaceDecl\n";}
 				;
 
-Prototype 		: Type ID LPAREN Formals RPAREN SEMICOLON Prototype	{cout << "Prototype";}
-				| VOID ID LPAREN Formals RPAREN SEMICOLON Prototype	{cout << "Prototype";}
+Prototype 		: Type ID LPAREN Formals RPAREN SEMICOLON Prototype	{cout << "Prototype\n";}
+				| VOID ID LPAREN Formals RPAREN SEMICOLON Prototype	{cout << "Prototype\n";}
 				|
 				;
 
-StmtBlock 		: LBRACE BlockVariables BlockStmts RBRACE	{cout << "StmtBlock";}
+StmtBlock 		: LBRACE BlockVariables BlockStmts RBRACE	{cout << "StmtBlock\n";}
 				;
 
-BlockVariables	: VariableDecl BlockVariables	{cout << "BlockVariables";}
+BlockVariables	: VariableDecl BlockVariables	{cout << "BlockVariables\n";}
 				|
 				;
 
-BlockStmts		: Stmt BlockStmts	{cout << "BlockStmts";}
+BlockStmts		: Stmt BlockStmts	{cout << "BlockStmts\n";}
 				|
 				;
 
-Stmt 			: ExprOpcional SEMICOLON	{cout << "Stmt";}
-				| IfStmt					{cout << "Stmt";}
-				| WhileStmt					{cout << "Stmt";}
-				| ForStmt					{cout << "Stmt";}
-				| BreakStmt					{cout << "Stmt";}
-				| ReturnStmt				{cout << "Stmt";}
-				| PrintStmt					{cout << "Stmt";}
-				| StmtBlock					{cout << "Stmt";}
+Stmt 			: ExprOpcional SEMICOLON	{cout << "Stmt\n";}
+				| IfStmt					{cout << "Stmt\n";}
+				| WhileStmt					{cout << "Stmt\n";}
+				| ForStmt					{cout << "Stmt\n";}
+				| BreakStmt					{cout << "Stmt\n";}
+				| ReturnStmt				{cout << "Stmt\n";}
+				| PrintStmt					{cout << "Stmt\n";}
+				| StmtBlock					{cout << "Stmt\n";}
 				;
 
-IfStmt 			: IF LPAREN Expr RPAREN Stmt ElseStmt	{cout << "IfStmt";}
+IfStmt 			: IF LPAREN Expr RPAREN Stmt ElseStmt	{cout << "IfStmt\n";}
 				;
 
-ElseStmt		: ELSE Stmt	{cout << "ElseStmt";}
+ElseStmt		: ELSE Stmt	{cout << "ElseStmt\n";}
 				|
 				;
 
-WhileStmt 		: WHILE LPAREN Expr RPAREN Stmt	{cout << "WhileStmt";}
+WhileStmt 		: WHILE LPAREN Expr RPAREN Stmt	{cout << "WhileStmt\n";}
 				;
 
-ForStmt 		: FOR LPAREN ExprOpcional SEMICOLON ExprOpcional SEMICOLON ExprOpcional RPAREN Stmt	{cout << "ForStmt";}
+ForStmt 		: FOR LPAREN ExprOpcional SEMICOLON ExprOpcional SEMICOLON ExprOpcional RPAREN Stmt	{cout << "ForStmt\n";}
 				;
 
-ReturnStmt 		: RETURN ExprOpcional SEMICOLON	{cout << "ReturnStmt";}
+ReturnStmt 		: RETURN ExprOpcional SEMICOLON	{cout << "ReturnStmt\n";}
 				;
 
-BreakStmt 		: BREAK SEMICOLON	{cout << "BreakStmt";}
+BreakStmt 		: BREAK SEMICOLON	{cout << "BreakStmt\n";}
 				;
 
-PrintStmt 		: PRINT LPAREN Expr OtraExpr RPAREN SEMICOLON	{cout << "PrintStmt";}
+PrintStmt 		: PRINT LPAREN Expr OtraExpr RPAREN SEMICOLON	{cout << "PrintStmt\n";}
 				;
 
-OtraExpr		: COMMA Expr OtraExpr	{cout << "OtraExpr";}
+OtraExpr		: COMMA Expr OtraExpr	{cout << "OtraExpr\n";}
 				|
 				;
 
-ExprOpcional	: Expr	{cout << "ExprOpcional";}
+ExprOpcional	: Expr	{cout << "ExprOpcional\n";}
 				|
 				;
 
-Expr 			: LValue EQUAL Expr	{cout << "Expr";}
-				| Constant			{cout << "Expr";}	
-				| LValue	{cout << "Expr";}
-				| THIS		{cout << "Expr";}
-				| Call		{cout << "Expr";}
-				| LPAREN Expr RPAREN	{cout << "Expr";}
-				| Expr SUM Expr		{cout << "Expr";}
-				| Expr SUBTRACTION Expr	{cout << "Expr";}
-				| Expr MULTIPLICATION Expr	{cout << "Expr";}
-				| Expr DIVISION Expr	{cout << "Expr";}
-				| Expr MODULE Expr	{cout << "Expr";}
-				| SUBTRACTION Expr	{cout << "Expr";}
-				| Expr LESSTHAN Expr	{cout << "Expr";}
-				| Expr LESSEQUALTHAN Expr	{cout << "Expr";}
-				| Expr GREATERTHAN Expr	{cout << "Expr";}
-				| Expr GREATEREQUALTHAN Expr	{cout << "Expr";}
-				| Expr EEQUAL Expr	{cout << "Expr";}
-				| Expr DISTINCT Expr	{cout << "Expr";}
-				| Expr AND Expr	{cout << "Expr";}
-				| Expr OR Expr	{cout << "Expr";}
-				| NEGATION Expr	{cout << "Expr";}
-				| READINTEGER LPAREN RPAREN	{cout << "Expr";}
-				| READLINE LPAREN RPAREN	{cout << "Expr";}
-				| NEW LPAREN ID RPAREN	{cout << "Expr";}
-				| NEWARRAY LPAREN Expr COMMA Type RPAREN	{cout << "Expr";}
+Expr 			: LValue EQUAL Expr	{cout << "Expr\n";}
+				| Constant			{cout << "Expr\n";}	
+				| LValue	{cout << "Expr\n";}
+				| THIS		{cout << "Expr\n";}
+				| Call		{cout << "Expr\n";}
+				| LPAREN Expr RPAREN	{cout << "Expr\n";}
+				| Expr SUM Expr		{cout << "Expr\n";}
+				| Expr SUBTRACTION Expr	{cout << "Expr\n";}
+				| Expr MULTIPLICATION Expr	{cout << "Expr\n";}
+				| Expr DIVISION Expr	{cout << "Expr\n";}
+				| Expr MODULE Expr	{cout << "Expr\n";}
+				| SUBTRACTION Expr	{cout << "Expr\n";}
+				| Expr LESSTHAN Expr	{cout << "Expr\n";}
+				| Expr LESSEQUALTHAN Expr	{cout << "Expr\n";}
+				| Expr GREATERTHAN Expr	{cout << "Expr\n";}
+				| Expr GREATEREQUALTHAN Expr	{cout << "Expr\n";}
+				| Expr EEQUAL Expr	{cout << "Expr\n";}
+				| Expr DISTINCT Expr	{cout << "Expr\n";}
+				| Expr AND Expr	{cout << "Expr\n";}
+				| Expr OR Expr	{cout << "Expr\n";}
+				| NEGATION Expr	{cout << "Expr\n";}
+				| READINTEGER LPAREN RPAREN	{cout << "Expr\n";}
+				| READLINE LPAREN RPAREN	{cout << "Expr\n";}
+				| NEW LPAREN ID RPAREN	{cout << "Expr\n";}
+				| NEWARRAY LPAREN Expr COMMA Type RPAREN	{cout << "Expr\n";}
 				;
 				
-LValue 			: ID {cout << "LValue";}
-				| Expr DOT ID 	{cout << "LValue";}
-				| Expr LBRACKET Expr RBRACKET	{cout << "LValue";}
+LValue 			: ID {cout << "LValue\n";}
+				| Expr DOT ID 	{cout << "LValue\n";}
+				| Expr LBRACKET Expr RBRACKET	{cout << "LValue\n";}
 				;
 
-Call 			: ID LPAREN Actuals RPAREN	{cout << "Call";}
-				| Expr DOT ID LPAREN Actuals RPAREN	{cout << "Call";}
+Call 			: ID LPAREN Actuals RPAREN	{cout << "Call\n";}
+				| Expr DOT ID LPAREN Actuals RPAREN	{cout << "Call\n";}
 				;
 
-Actuals 		: Expr OtraExpr	{cout << "Actuals";}
+Actuals 		: Expr OtraExpr	{cout << "Actuals\n";}
 				|
 				;
 
-Constant 		: CONSINTEGERDEC	{cout << "Constant";}
-				| CONSINTEGERHEX	{cout << "Constant";}
-				| CONSDOUBLEDEC		{cout << "Constant";}
-				| CONSDOUBLECIEN 	{cout << "Constant";}
-				| CONSBOOLEAN		{cout << "Constant";}
-				| CONSSTRING 		{cout << "Constant";}
-				| TNULL				{cout << "Constant";}
+Constant 		: CONSINTEGERDEC	{cout << "Constant\n";}
+				| CONSINTEGERHEX	{cout << "Constant\n";}
+				| CONSDOUBLEDEC		{cout << "Constant\n";}
+				| CONSDOUBLECIEN 	{cout << "Constant\n";}
+				| CONSBOOLEAN		{cout << "Constant\n";}
+				| CONSSTRING 		{cout << "Constant\n";}
+				| TNULL				{cout << "Constant\n";}
 				;
 
 %%

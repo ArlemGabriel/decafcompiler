@@ -64,63 +64,6 @@ void addError(int pRow,int pColumn,string pError){
 }
 
 
-/*
-class NodeParseTree
-{
-public:
-	NodeParseTree()
-	{
-		parent = NULL;		
-
-		token = "NULL";
-        value = "NULL";
-        row = -1;
-        column = -1;
-	}
-
-	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
-	{
-		parent = NULL;		
-
-		token = pToken;
-		value = pValue;
-		row = pRow;
-		column = pColumn;
-	}
-
-	string token;
-    string value;
-
-    int row;
-    int column;
-    NodeParseTree *parent;
-	vector<NodeParseTree> *childs;
-
-};
-
-typedef NodeParseTree * pNodeParseTree;
-
-class ParseTree
-{
-public:
-	ParseTree()
-	{
-		rootTree = actual = NULL;   //Constuctor
-	}
-	~ParseTree();                          //Deestructor
-	bool isVoid()
-	{
-		return rootTree == NULL;
-	}
-
-	void newNode(string pToken, string pValue, int pRow, int pColumn);		
-	pNodeParseTree rootTree;
-	
-
-private:
-	pNodeParseTree actual;
-};
-*/
 
 
 

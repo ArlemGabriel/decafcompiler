@@ -1,4 +1,4 @@
-
+/*
 ParseTree::~ParseTree()                         //Destructor
 {
 	actual = NULL;
@@ -15,7 +15,7 @@ void ParseTree::newNode(string pToken, string pValue, int pRow, int pColumn){
 
 
 }
-/*
+
 
 void ArbolCliente::encontrarCliente(string pCedula, string pNombre, string pDireccion, string pTel, NodoCliente * pAux){
 	if (atoi(pCedula.c_str()) <= atoi(pAux->cedula.c_str())){

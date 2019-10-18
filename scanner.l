@@ -135,7 +135,11 @@ HOLAMUNDO "Hola"
 {LINEBREAK} {yycolumn=1;}
 {BLANKSPACE} {yycolumn+=1;}
 {TAB} {yycolumn+=1;}
+<<<<<<< Updated upstream
 {INVALIDCHAR}   {addError(yylineno,yycolumn,"Invalid character");}
+=======
+.   printf(yytext);//addError(yylineno,yycolumn,"Invalid character");
+>>>>>>> Stashed changes
 
 %%
 /*int main(int argcount, char **argvector)
