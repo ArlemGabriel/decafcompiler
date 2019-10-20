@@ -33,7 +33,7 @@ public:
 		column = pColumn;
 	}
 
-    NodeParseTree(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree> *pChilds)
+    NodeParseTree(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> *pChilds)
 	{
 		parent = NULL;
         childs = pChilds;		
@@ -44,7 +44,7 @@ public:
 		column = pColumn;
 	}
 
-    void addData(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree> *pChilds)
+    void addData(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> *pChilds)
 	{
 		parent = NULL;
         childs = pChilds;		
@@ -66,7 +66,8 @@ public:
 		column = pColumn;
 	}
 
-    void addChild(NodeParseTree pChild){
+
+    void addChild(NodeParseTree *pChild){
         childs->push_back(pChild);
     }
 
@@ -80,7 +81,7 @@ public:
     int row;
     int column;
     NodeParseTree *parent;
-	std::vector<NodeParseTree> *childs;
+	std::vector<NodeParseTree*> *childs;
 
 };
 
