@@ -12,4 +12,4 @@ clean:
 		rm -f compilador *.o
 		rm -f compilador *.c
 		rm -f compilador parser.tab.h
-
+		rm -f compilador parser.output
