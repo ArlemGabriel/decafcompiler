@@ -13,8 +13,7 @@ class NodeParseTree
 public:
 	NodeParseTree()
 	{
-		parent = NULL;		
-        childs = NULL;
+		parent = NULL;		        
 
 		token = "NULL";
         value = "NULL";
@@ -24,8 +23,7 @@ public:
 
 	NodeParseTree(string pToken, string pValue, int pRow, int pColumn)
 	{
-		parent = NULL;
-        childs = NULL;		
+		parent = NULL;        		
 
 		token = pToken;
 		value = pValue;
@@ -33,7 +31,7 @@ public:
 		column = pColumn;
 	}
 
-    NodeParseTree(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> *pChilds)
+    NodeParseTree(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> pChilds)
 	{
 		parent = NULL;
         childs = pChilds;		
@@ -44,7 +42,7 @@ public:
 		column = pColumn;
 	}
 
-    void addData(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> *pChilds)
+    void addData(string pToken, string pValue, int pRow, int pColumn, vector<NodeParseTree*> pChilds)
 	{
 		parent = NULL;
         childs = pChilds;		
@@ -54,24 +52,13 @@ public:
 		row = pRow;
 		column = pColumn;
 	}
-
-    void addData(string pToken, string pValue, int pRow, int pColumn)
-	{
-		parent = NULL;
-        childs = NULL;		
-
-		token = pToken;
-		value = pValue;
-		row = pRow;
-		column = pColumn;
-	}
-
+/*
     void addChilds(vector<NodeParseTree*> *pChilds){
         childs = pChilds;
     }
-
+*/
     void addChild(NodeParseTree *pChild){
-        childs->push_back(pChild);
+        childs.push_back(pChild);
     }
 
     void addParent(NodeParseTree *pParent){
@@ -84,14 +71,14 @@ public:
     int row;
     int column;
     NodeParseTree *parent;
-	std::vector<NodeParseTree*> *childs;
+	std::vector<NodeParseTree*> childs;
 
 };
 
 typedef NodeParseTree * pNodeParseTree;
 
 pNodeParseTree newNode(string pToken, string pValue, int pRow, int pColumn){
-    return	new NodeParseTree(pToken, pValue, pRow, pColumn);	
+    return new NodeParseTree(pToken, pValue, pRow, pColumn);	
 }
 
 
