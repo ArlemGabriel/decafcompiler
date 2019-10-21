@@ -66,6 +66,9 @@ public:
 		column = pColumn;
 	}
 
+    void addChilds(vector<NodeParseTree*> *pChilds){
+        childs = pChilds;
+    }
 
     void addChild(NodeParseTree *pChild){
         childs->push_back(pChild);
