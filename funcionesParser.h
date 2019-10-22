@@ -15,8 +15,8 @@ public:
 	{
 		parent = NULL;		        
 
-		token = "NULL";
-        value = "NULL";
+		token = "";
+        value = "";
         row = -1;
         column = -1;
 	}
@@ -81,29 +81,6 @@ pNodeParseTree newNode(string pToken, string pValue, int pRow, int pColumn){
     return new NodeParseTree(pToken, pValue, pRow, pColumn);	
 }
 
-
-
-/*
-class ParseTree
-{
-public:
-	ParseTree()
-	{
-		rootTree = actual = NULL;   //Constuctor
-	}
-	~ParseTree();                          //Deestructor
-	bool isVoid()
-	{
-		return rootTree == NULL;
-	}
-
-	void newNode(string pToken, string pValue, int pRow, int pColumn);		
-	pNodeParseTree rootTree;
-	
-
-private:
-	pNodeParseTree actual;
-};*/
 
 
 #endif // FUNCIONES_PARSER_H_INCLUDED

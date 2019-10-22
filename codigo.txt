@@ -2,4 +2,8 @@ class Hello {
 	void main() {
 		Print("Hello world\n");
   }
+	int funcion(){
+		string a;
+		bool b;
+}
 }
