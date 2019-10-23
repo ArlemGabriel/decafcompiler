@@ -99,27 +99,27 @@ VariableDecl 	: Variable SEMICOLON											{createNewListaChilds(); 	createNew
 				;							
 
 Variable 		: Type ID														{createNewListaChilds();	createNewNode("Type","",0,0); 			addChildsToNode(0);	addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();}		
+					createNewNode("ID",$2,0,0);				addNodeToChilds();}		
 				;
 
 Type 			: INT															{createNewListaChilds();	createNewNode("INT","",0,0);			addNodeToChilds();}		
 				| DOUBLE														{createNewListaChilds(); 	createNewNode("DOUBLE","",0,0);			addNodeToChilds();}		
 				| BOOL															{createNewListaChilds(); 	createNewNode("BOOL","",0,0);			addNodeToChilds();}
 				| STRING														{createNewListaChilds();	createNewNode("STRING","",0,0);			addNodeToChilds();}
-				| ID															{createNewListaChilds(); 	createNewNode("ID","",0,0);				addNodeToChilds();}
+				| ID															{createNewListaChilds(); 	createNewNode("ID",$1,0,0);				addNodeToChilds();}
 				| Type LBRACKET RBRACKET										{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(0);	addNodeToChilds();
 						createNewNode("LBRACKET","",0,0);	addNodeToChilds();
 						createNewNode("RBRACKET","",0,0);	addNodeToChilds();}
 				;
 
 FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(2); addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();					
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();
 					createNewNode("StmtBlock","",0,0);		addChildsToNode(0);		addNodeToChilds();}
 				| VOID ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("VOID","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();
@@ -138,7 +138,7 @@ FormalsVars		: COMMA Variable FormalsVars									{createNewListaChilds(); 	crea
 				;
 
 ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE		{createNewListaChilds(); 	createNewNode("CLASS","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("ExtendDecl","",0,0);		addChildsToNode(2);		addNodeToChilds();
 					createNewNode("ImplementsDecl","",0,0);	addChildsToNode(1);		addNodeToChilds();
 					createNewNode("LBRACE","",0,0);			addNodeToChilds();
@@ -147,18 +147,18 @@ ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE		{createNew
 				;
 
 ExtendDecl		: EXTENDS ID													{createNewListaChilds(); 	createNewNode("EXTENDS","",0,0);		addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();}
+					createNewNode("ID",$2,0,0);				addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
 ImplementsDecl	: IMPLEMENTS ID OtroID											{createNewListaChilds(); 	createNewNode("IMPLEMENTS","",0,0);		addNodeToChilds();
-						createNewNode("ID","",0,0);			addNodeToChilds();
+						createNewNode("ID",$2,0,0);			addNodeToChilds();
 						createNewNode("OtroID","",0,0);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
 OtroID			: COMMA ID OtroID												{createNewListaChilds(); 	createNewNode("COMMA","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("OtroID","",0,0);			addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
@@ -171,21 +171,21 @@ Field 			: VariableDecl Field											{createNewListaChilds(); 	createNewNode(
 				;
 
 InterfaceDecl	: INTERFACE ID LBRACE Prototype RBRACE							{createNewListaChilds();	createNewNode("INTERFACE","",0,0);		addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("LBRACE","",0,0);			addNodeToChilds();
 					createNewNode("Prototype","",0,0);		addChildsToNode(0);		addNodeToChilds();
 					createNewNode("RBRACE","",0,0);			addNodeToChilds();}
 				;
 
 Prototype 		: Type ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(2);	addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();
 					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();
 					createNewNode("Prototype","",0,0);		addChildsToNode(0);		addNodeToChilds();}
 				| VOID ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("VOID","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$2,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();
@@ -340,7 +340,7 @@ Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
 				| NEW LPAREN ID RPAREN											{createNewListaChilds(); createNewNode("NEW","",0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$3,0,0);				addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
 				| NEWARRAY LPAREN Expr COMMA Type RPAREN						{createNewListaChilds(); createNewNode("NEWARRAY","",0,0);			addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
@@ -350,23 +350,23 @@ Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
 				;
 				
-LValue 			: ID															{createNewListaChilds(); createNewNode("ID","",0,0);				addNodeToChilds();}
+LValue 			: ID															{createNewListaChilds(); createNewNode("ID",$1,0,0);				addNodeToChilds();}
 				| Expr DOT ID 													{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(0);	addNodeToChilds();
 					createNewNode("DOT","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();}
+					createNewNode("ID",$3,0,0);				addNodeToChilds();}
 				| Expr LBRACKET Expr RBRACKET									{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
 					createNewNode("LBRACKET","",0,0);		addNodeToChilds();
 					createNewNode("Expr","",0,0);			addChildsToNode(0);	addNodeToChilds();
 					createNewNode("RBRACKET","",0,0);		addNodeToChilds();}
 				;
 
-Call 			: ID LPAREN Actuals RPAREN										{createNewListaChilds(); createNewNode("ID","",0,0);				addNodeToChilds();
+Call 			: ID LPAREN Actuals RPAREN										{createNewListaChilds(); createNewNode("ID",$1,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Actuals","",0,0);		addChildsToNode(0);	addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
 				| Expr DOT ID LPAREN Actuals RPAREN								{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(0);	addNodeToChilds();
 					createNewNode("DOT","",0,0);			addNodeToChilds();
-					createNewNode("ID","",0,0);				addNodeToChilds();
+					createNewNode("ID",$3,0,0);				addNodeToChilds();
 					createNewNode("LPAREN","",0,0);			addNodeToChilds();
 					createNewNode("Actuals","",0,0);		addNodeToChilds();
 					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
@@ -378,11 +378,11 @@ Actuals 		: Expr OtraExpr													{createNewListaChilds(); createNewNode("Ex
 				;
 
 Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("CONSINTEGERDEC",$1,0,0);	addNodeToChilds();}
-				| CONSINTEGERHEX												{createNewListaChilds(); createNewNode("CONSINTEGERHEX","",0,0);	addNodeToChilds();}
-				| CONSDOUBLEDEC													{createNewListaChilds(); createNewNode("CONSDOUBLEDEC","",0,0);		addNodeToChilds();}
-				| CONSDOUBLECIEN 												{createNewListaChilds(); createNewNode("CONSDOUBLECIEN","",0,0);	addNodeToChilds();}
-				| CONSBOOLEAN													{createNewListaChilds(); createNewNode("CONSBOOLEAN","",0,0);		addNodeToChilds();}
-				| CONSSTRING 													{createNewListaChilds(); createNewNode("CONSSTRING","",0,0);		addNodeToChilds();}
+				| CONSINTEGERHEX												{createNewListaChilds(); createNewNode("CONSINTEGERHEX",$1,0,0);	addNodeToChilds();}
+				| CONSDOUBLEDEC													{createNewListaChilds(); createNewNode("CONSDOUBLEDEC",$1,0,0);		addNodeToChilds();}
+				| CONSDOUBLECIEN 												{createNewListaChilds(); createNewNode("CONSDOUBLECIEN",$1,0,0);	addNodeToChilds();}
+				| CONSBOOLEAN													{createNewListaChilds(); createNewNode("CONSBOOLEAN",$1,0,0);		addNodeToChilds();}
+				| CONSSTRING 													{createNewListaChilds(); createNewNode("CONSSTRING",$1,0,0);		addNodeToChilds();}
 				| TNULL															{createNewListaChilds(); createNewNode("TNULL","",0,0);				addNodeToChilds();}
 				;
 
@@ -457,7 +457,7 @@ void printTree(pNodeParseTree root){
 }
 
 void printChilds(pNodeParseTree root, int tabs){
-	for(int i=0;i<root->childs.size();i++)
+	for(int i=root->childs.size()-1;i>=0;i--)
     {
 		//Agarra en hijo del parametro nodo root
 		pNodeParseTree child = root->childs.at(i);	
