@@ -96,13 +96,13 @@ HOLAMUNDO "Hola"
 {RETURN} {addRow(yylineno,yycolumn,"RETURN","");yycolumn+=yyleng;return RETURN;}
 {PRINT} {addRow(yylineno,yycolumn,"PRINT","");yycolumn+=yyleng;return PRINT;}
 {FALSE} {addRow(yylineno,yycolumn,"FALSE","");yycolumn+=yyleng;return FALSE;}
-{ID}    {addRow(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;return ID;}
-{CONSINTEGERHEX}    {addRow(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;return CONSINTEGERHEX;}
+{ID}    {addRow(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;yylval.sval=yytext;return ID;}
+{CONSINTEGERHEX}    {addRow(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSINTEGERHEX;}
 {CONSINTEGERDEC}    {addRow(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSINTEGERDEC;}
-{CONSBOOLEAN} {addRow(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;return CONSBOOLEAN;}
-{CONSDOUBLEDEC} {addRow(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLEDEC;}
-{CONSDOUBLECIEN} {addRow(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLECIEN;}
-{CONSSTRING} {addRow(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;return CONSSTRING;}
+{CONSBOOLEAN} {addRow(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSBOOLEAN;}
+{CONSDOUBLEDEC} {addRow(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSDOUBLEDEC;}
+{CONSDOUBLECIEN} {addRow(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSDOUBLECIEN;}
+{CONSSTRING} {addRow(yylineno,yycolumn,"CSTRING",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSSTRING;}
 {MULTICOMMENT} {addRow(yylineno,yycolumn,"MCOMMENT",yytext);yycolumn+=yyleng;}
 {SINGLECOMMENT} {addRow(yylineno,yycolumn,"SCOMMENT",yytext);yycolumn+=yyleng;}
 {SUM} {addRow(yylineno,yycolumn,"SUM","");yycolumn+=yyleng;return SUM;}
