@@ -98,7 +98,7 @@ HOLAMUNDO "Hola"
 {FALSE} {addRow(yylineno,yycolumn,"FALSE","");yycolumn+=yyleng;return FALSE;}
 {ID}    {addRow(yylineno,yycolumn,"ID",yytext);yycolumn+=yyleng;return ID;}
 {CONSINTEGERHEX}    {addRow(yylineno,yycolumn,"HINTEGER",yytext);yycolumn+=yyleng;return CONSINTEGERHEX;}
-{CONSINTEGERDEC}    {addRow(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;return CONSINTEGERDEC;}
+{CONSINTEGERDEC}    {addRow(yylineno,yycolumn,"DINTEGER",yytext);yycolumn+=yyleng;yylval.sval=yytext;return CONSINTEGERDEC;}
 {CONSBOOLEAN} {addRow(yylineno,yycolumn,"BOOLEAN",yytext);yycolumn+=yyleng;return CONSBOOLEAN;}
 {CONSDOUBLEDEC} {addRow(yylineno,yycolumn,"DDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLEDEC;}
 {CONSDOUBLECIEN} {addRow(yylineno,yycolumn,"CDOUBLE",yytext);yycolumn+=yyleng;return CONSDOUBLECIEN;}

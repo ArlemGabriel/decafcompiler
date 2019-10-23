@@ -32,9 +32,6 @@ int yyerror(char *s);
 %token CLASS VOID STRING THIS WHILE BREAK READINTEGER INT EXTENDS IF NEW READLINE DOUBLE INTERFACE
 %token IMPLEMENTS ELSE NEWARRAY TRUE BOOL TNULL FOR RETURN PRINT FALSE
 
-//Datos
-%token ID CONSINTEGERDEC CONSINTEGERHEX CONSDOUBLEDEC CONSDOUBLECIEN CONSSTRING CONSBOOLEAN
-
 //Operadores
 //      +       -             *           /       %       <          <=            >           >=
 %token SUM SUBTRACTION MULTIPLICATION DIVISION MODULE LESSTHAN LESSEQUALTHAN GREATERTHAN GREATEREQUALTHAN
@@ -42,6 +39,19 @@ int yyerror(char *s);
 %token EQUAL EEQUAL DISTINCT AND OR NEGATION SEMICOLON COMMA DOT LBRACKET RBRACKET LPAREN RPAREN
 //        {     }
 %token LBRACE RBRACE
+
+//Datos
+%token <sval> ID 
+%token <sval> CONSINTEGERDEC
+%token <sval> CONSINTEGERHEX 
+%token <sval> CONSDOUBLEDEC
+%token <sval> CONSDOUBLECIEN
+%token <sval> CONSSTRING
+%token <sval> CONSBOOLEAN
+
+%union {
+    char* sval;
+}
 
 %left OR
 %left AND
@@ -362,7 +372,7 @@ Actuals 		: Expr OtraExpr													{createNewListaChilds(); createNewNode("Ex
 				|																%prec EQUAL	{createNewListaChilds();}
 				;
 
-Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("CONSINTEGERDEC","",0,0);	addNodeToChilds();}
+Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("CONSINTEGERDEC",$1,0,0);	addNodeToChilds();}
 				| CONSINTEGERHEX												{createNewListaChilds(); createNewNode("CONSINTEGERHEX","",0,0);	addNodeToChilds();}
 				| CONSDOUBLEDEC													{createNewListaChilds(); createNewNode("CONSDOUBLEDEC","",0,0);		addNodeToChilds();}
 				| CONSDOUBLECIEN 												{createNewListaChilds(); createNewNode("CONSDOUBLECIEN","",0,0);	addNodeToChilds();}
