@@ -459,6 +459,7 @@ void printTree(pNodeParseTree root){
 void printChilds(pNodeParseTree root, int tabs){
 	for(int i=root->childs.size()-1;i>=0;i--)
     {
+		//SI funciona
 		//Agarra en hijo del parametro nodo root
 		pNodeParseTree child = root->childs.at(i);	
 		
