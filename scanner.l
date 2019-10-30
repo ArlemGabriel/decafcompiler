@@ -139,18 +139,3 @@ HOLAMUNDO "Hola"
 
 
 %%
-/*int main(int argcount, char **argvector)
-{
-    if (argcount == 2)
-    {
-        yyin=fopen(argvector[1],"r");
-    }
-    else{
-        yyin=stdin;
-    }
-    yylex();
-    printTable();
-    comentario prueba git ignore
-
-}
-*/

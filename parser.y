@@ -397,19 +397,18 @@ int yyerror(char *s){
 
 int main(int argcount, char **argvector)
 {
-		// Open a file handle to a particular file:
-	FILE *myfile = fopen(argvector[1], "r");
-	// Make sure it is valid:
-	if (!myfile) {
-		cout << "No se puede leer el archivo con código o no existe" << endl;
-		return -1;
-	}
-	// Set Flex to read from it instead of defaulting to STDIN:
-	yyin = myfile;
-
-	//yylex();  
-	
-	// Parse through the input:
+    if (argcount == 2)
+    {
+        FILE *myfile = fopen(argvector[1], "r");
+	    if (!myfile) {
+		    cout << "No se puede leer el archivo con código o no existe" << endl;
+		    return -1;
+	    }
+	    yyin = myfile;
+    }
+    else{
+        yyin=stdin;
+    }
 	yyparse();
 	printTable();
 	printTree(nodo);
