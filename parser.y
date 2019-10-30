@@ -78,314 +78,314 @@ int yyerror(char *s);
 
 %%
 //----------------------------- Producciones -----------------------------
-Program			: Decl															{createNewListaChilds();	createNewNode("Decl","",0,0);	addChildsToNode(0);}		
+Program			: Decl															{createNewListaChilds();	createNewNode("Decl","",yylineno,yycolumn);	addChildsToNode(0);}		
 				;
 		
-Decl 			: VariableDecl OtraDecl											{createNewListaChilds();	createNewNode("VariableDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();													
-					createNewNode("OtraDecl","",0,0);		addChildsToNode(0);		addNodeToChilds();}		
-				| FunctionDecl OtraDecl											{createNewListaChilds(); 	createNewNode("FunctionDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",0,0);		addChildsToNode(0);		addNodeToChilds();}		
-				| ClassDecl OtraDecl											{createNewListaChilds(); 	createNewNode("ClassDecl","",0,0);		addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",0,0);		addChildsToNode(0);		addNodeToChilds();}		
-				| InterfaceDecl OtraDecl										{createNewListaChilds(); 	createNewNode("InterfaceDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",0,0);		addChildsToNode(0);		addNodeToChilds();}		
+Decl 			: VariableDecl OtraDecl											{createNewListaChilds();	createNewNode("VariableDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();													
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+				| FunctionDecl OtraDecl											{createNewListaChilds(); 	createNewNode("FunctionDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+				| ClassDecl OtraDecl											{createNewListaChilds(); 	createNewNode("ClassDecl","",yylineno,yycolumn);		addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+				| InterfaceDecl OtraDecl										{createNewListaChilds(); 	createNewNode("InterfaceDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
 				;
 
-OtraDecl		: Decl OtraDecl													{createNewListaChilds();	createNewNode("OtraDecl","",0,0);		addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",0,0);		addChildsToNode(0);		addNodeToChilds();}		
+OtraDecl		: Decl OtraDecl													{createNewListaChilds();	createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-VariableDecl 	: Variable SEMICOLON											{createNewListaChilds(); 	createNewNode("Variable","",0,0);		addChildsToNode(0);	addNodeToChilds();
-					createNewNode("SEMICOLON",";",0,0);		addNodeToChilds();}
+VariableDecl 	: Variable SEMICOLON											{createNewListaChilds(); 	createNewNode("Variable","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();
+					createNewNode("SEMICOLON",";",yylineno,yycolumn);		addNodeToChilds();}
 				;							
 
-Variable 		: Type ID														{createNewListaChilds();	createNewNode("Type","",0,0); 			addChildsToNode(0);	addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();}		
+Variable 		: Type ID														{createNewListaChilds();	createNewNode("Type","",yylineno,yycolumn); 			addChildsToNode(0);	addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();}		
 				;
 
-Type 			: INT															{createNewListaChilds();	createNewNode("INT","",0,0);			addNodeToChilds();}		
-				| DOUBLE														{createNewListaChilds(); 	createNewNode("DOUBLE","",0,0);			addNodeToChilds();}		
-				| BOOL															{createNewListaChilds(); 	createNewNode("BOOL","",0,0);			addNodeToChilds();}
-				| STRING														{createNewListaChilds();	createNewNode("STRING","",0,0);			addNodeToChilds();}
-				| ID															{createNewListaChilds(); 	createNewNode("ID",$1,0,0);				addNodeToChilds();}
-				| Type LBRACKET RBRACKET										{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(0);	addNodeToChilds();
-						createNewNode("LBRACKET","",0,0);	addNodeToChilds();
-						createNewNode("RBRACKET","",0,0);	addNodeToChilds();}
+Type 			: INT															{createNewListaChilds();	createNewNode("INT","",yylineno,yycolumn);			addNodeToChilds();}		
+				| DOUBLE														{createNewListaChilds(); 	createNewNode("DOUBLE","",yylineno,yycolumn);			addNodeToChilds();}		
+				| BOOL															{createNewListaChilds(); 	createNewNode("BOOL","",yylineno,yycolumn);			addNodeToChilds();}
+				| STRING														{createNewListaChilds();	createNewNode("STRING","",yylineno,yycolumn);			addNodeToChilds();}
+				| ID															{createNewListaChilds(); 	createNewNode("ID",$1,yylineno,yycolumn);				addNodeToChilds();}
+				| Type LBRACKET RBRACKET										{createNewListaChilds(); 	createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();
+						createNewNode("LBRACKET","",yylineno,yycolumn);	addNodeToChilds();
+						createNewNode("RBRACKET","",yylineno,yycolumn);	addNodeToChilds();}
 				;
 
-FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(2); addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();					
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("StmtBlock","",0,0);		addChildsToNode(0);		addNodeToChilds();}
-				| VOID ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("VOID","",0,0);			addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("StmtBlock","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(2); addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();					
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("StmtBlock","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
+				| VOID ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("VOID","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("StmtBlock","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				;
 
-Formals 		: Variable FormalsVars											{createNewListaChilds(); 	createNewNode("Variable","",0,0);		addChildsToNode(1);	addNodeToChilds();
-					createNewNode("FormalsVars","",0,0);	addChildsToNode(0);		addNodeToChilds();}
+Formals 		: Variable FormalsVars											{createNewListaChilds(); 	createNewNode("Variable","",yylineno,yycolumn);		addChildsToNode(1);	addNodeToChilds();
+					createNewNode("FormalsVars","",yylineno,yycolumn);	addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-FormalsVars		: COMMA Variable FormalsVars									{createNewListaChilds(); 	createNewNode("COMMA","",0,0);			addNodeToChilds();
-					createNewNode("Variable","",0,0);		addChildsToNode(1);		addNodeToChilds();
-					createNewNode("FormalsVars","",0,0);	addChildsToNode(0);		addNodeToChilds();}
+FormalsVars		: COMMA Variable FormalsVars									{createNewListaChilds(); 	createNewNode("COMMA","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Variable","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();
+					createNewNode("FormalsVars","",yylineno,yycolumn);	addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE		{createNewListaChilds(); 	createNewNode("CLASS","",0,0);			addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("ExtendDecl","",0,0);		addChildsToNode(2);		addNodeToChilds();
-					createNewNode("ImplementsDecl","",0,0);	addChildsToNode(1);		addNodeToChilds();
-					createNewNode("LBRACE","",0,0);			addNodeToChilds();
-					createNewNode("Field","",0,0);			addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RBRACE","",0,0);			addNodeToChilds();}
+ClassDecl 		: CLASS ID ExtendDecl ImplementsDecl LBRACE Field RBRACE		{createNewListaChilds(); 	createNewNode("CLASS","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("ExtendDecl","",yylineno,yycolumn);		addChildsToNode(2);		addNodeToChilds();
+					createNewNode("ImplementsDecl","",yylineno,yycolumn);	addChildsToNode(1);		addNodeToChilds();
+					createNewNode("LBRACE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Field","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RBRACE","",yylineno,yycolumn);			addNodeToChilds();}
 				;
 
-ExtendDecl		: EXTENDS ID													{createNewListaChilds(); 	createNewNode("EXTENDS","",0,0);		addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();}
+ExtendDecl		: EXTENDS ID													{createNewListaChilds(); 	createNewNode("EXTENDS","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-ImplementsDecl	: IMPLEMENTS ID OtroID											{createNewListaChilds(); 	createNewNode("IMPLEMENTS","",0,0);		addNodeToChilds();
-						createNewNode("ID",$2,0,0);			addNodeToChilds();
-						createNewNode("OtroID","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+ImplementsDecl	: IMPLEMENTS ID OtroID											{createNewListaChilds(); 	createNewNode("IMPLEMENTS","",yylineno,yycolumn);		addNodeToChilds();
+						createNewNode("ID",$2,yylineno,yycolumn);			addNodeToChilds();
+						createNewNode("OtroID","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-OtroID			: COMMA ID OtroID												{createNewListaChilds(); 	createNewNode("COMMA","",0,0);			addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("OtroID","",0,0);			addChildsToNode(0);		addNodeToChilds();}
+OtroID			: COMMA ID OtroID												{createNewListaChilds(); 	createNewNode("COMMA","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("OtroID","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-Field 			: VariableDecl Field											{createNewListaChilds(); 	createNewNode("VariableDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("Field","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| FunctionDecl Field											{createNewListaChilds();	createNewNode("FunctionDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("Field","",0,0);			addChildsToNode(0);		addNodeToChilds();}
+Field 			: VariableDecl Field											{createNewListaChilds(); 	createNewNode("VariableDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("Field","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| FunctionDecl Field											{createNewListaChilds();	createNewNode("FunctionDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("Field","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-InterfaceDecl	: INTERFACE ID LBRACE Prototype RBRACE							{createNewListaChilds();	createNewNode("INTERFACE","",0,0);		addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("LBRACE","",0,0);			addNodeToChilds();
-					createNewNode("Prototype","",0,0);		addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RBRACE","",0,0);			addNodeToChilds();}
+InterfaceDecl	: INTERFACE ID LBRACE Prototype RBRACE							{createNewListaChilds();	createNewNode("INTERFACE","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LBRACE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Prototype","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RBRACE","",yylineno,yycolumn);			addNodeToChilds();}
 				;
 
-Prototype 		: Type ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("Type","",0,0);			addChildsToNode(2);	addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();
-					createNewNode("Prototype","",0,0);		addChildsToNode(0);		addNodeToChilds();}
-				| VOID ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("VOID","",0,0);			addNodeToChilds();
-					createNewNode("ID",$2,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Formals","",0,0);		addChildsToNode(1);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();
-					createNewNode("Prototype","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+Prototype 		: Type ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(2);	addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Prototype","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
+				| VOID ID LPAREN Formals RPAREN SEMICOLON Prototype				{createNewListaChilds(); 	createNewNode("VOID","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Prototype","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-StmtBlock 		: LBRACE BlockVariables BlockStmts RBRACE						{createNewListaChilds(); 	createNewNode("LBRACE","",0,0);			addNodeToChilds();
-					createNewNode("BlockVariables","",0,0);	addChildsToNode(1);		addNodeToChilds();
-					createNewNode("BlockStmts","",0,0);		addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RBRACE","",0,0);			addNodeToChilds();}
+StmtBlock 		: LBRACE BlockVariables BlockStmts RBRACE						{createNewListaChilds(); 	createNewNode("LBRACE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("BlockVariables","",yylineno,yycolumn);	addChildsToNode(1);		addNodeToChilds();
+					createNewNode("BlockStmts","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RBRACE","",yylineno,yycolumn);			addNodeToChilds();}
 				;
 
-BlockVariables	: VariableDecl BlockVariables									{createNewListaChilds();	createNewNode("VariableDecl","",0,0);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("BlockVariables","",0,0);	addChildsToNode(0);		addNodeToChilds();}
+BlockVariables	: VariableDecl BlockVariables									{createNewListaChilds();	createNewNode("VariableDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("BlockVariables","",yylineno,yycolumn);	addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-BlockStmts		: Stmt BlockStmts												{createNewListaChilds(); 	createNewNode("Stmt","",0,0);			addChildsToNode(1);	addNodeToChilds();	
-					createNewNode("BlockStmts","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+BlockStmts		: Stmt BlockStmts												{createNewListaChilds(); 	createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();	
+					createNewNode("BlockStmts","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-Stmt 			: ExprOpcional SEMICOLON										{createNewListaChilds(); 	createNewNode("ExprOpcional","",0,0);	addChildsToNode(0);	addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();}
-				| IfStmt														{createNewListaChilds(); 	createNewNode("IfStmt","",0,0);			addChildsToNode(0);	addNodeToChilds();}
-				| WhileStmt														{createNewListaChilds(); 	createNewNode("WhileStmt","",0,0);		addChildsToNode(0);	addNodeToChilds();}
-				| ForStmt														{createNewListaChilds(); 	createNewNode("ForStmt","",0,0);		addChildsToNode(0);	addNodeToChilds();}
-				| BreakStmt														{createNewListaChilds(); 	createNewNode("BreakStmt","",0,0);		addChildsToNode(0);	addNodeToChilds();}
-				| ReturnStmt													{createNewListaChilds(); 	createNewNode("ReturnStmt","",0,0);		addChildsToNode(0);	addNodeToChilds();}
-				| PrintStmt														{createNewListaChilds(); 	createNewNode("PrintStmt","",0,0);		addChildsToNode(0);	addNodeToChilds();}
-				| StmtBlock														{createNewListaChilds(); 	createNewNode("StmtBlock","",0,0);		addChildsToNode(0);	addNodeToChilds();}
+Stmt 			: ExprOpcional SEMICOLON										{createNewListaChilds(); 	createNewNode("ExprOpcional","",yylineno,yycolumn);	addChildsToNode(0);	addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();}
+				| IfStmt														{createNewListaChilds(); 	createNewNode("IfStmt","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
+				| WhileStmt														{createNewListaChilds(); 	createNewNode("WhileStmt","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
+				| ForStmt														{createNewListaChilds(); 	createNewNode("ForStmt","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
+				| BreakStmt														{createNewListaChilds(); 	createNewNode("BreakStmt","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
+				| ReturnStmt													{createNewListaChilds(); 	createNewNode("ReturnStmt","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
+				| PrintStmt														{createNewListaChilds(); 	createNewNode("PrintStmt","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
+				| StmtBlock														{createNewListaChilds(); 	createNewNode("StmtBlock","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
 				;
 
-IfStmt 			: IF LPAREN Expr RPAREN Stmt ElseStmt							{createNewListaChilds(); 	createNewNode("IF","",0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(2);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Stmt","",0,0);			addChildsToNode(1);		addNodeToChilds();
-					createNewNode("ElseStmt","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+IfStmt 			: IF LPAREN Expr RPAREN Stmt ElseStmt							{createNewListaChilds(); 	createNewNode("IF","",yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(2);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(1);		addNodeToChilds();
+					createNewNode("ElseStmt","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				;
 
-ElseStmt		: ELSE Stmt														{createNewListaChilds(); 	createNewNode("ELSE","",0,0);			addNodeToChilds();
-					createNewNode("Stmt","",0,0);			addChildsToNode(0);		addNodeToChilds();}
+ElseStmt		: ELSE Stmt														{createNewListaChilds(); 	createNewNode("ELSE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-WhileStmt 		: WHILE LPAREN Expr RPAREN Stmt									{createNewListaChilds(); 	createNewNode("WHILE","",0,0);			addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(1);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Stmt","",0,0);			addChildsToNode(0);		addNodeToChilds();}
+WhileStmt 		: WHILE LPAREN Expr RPAREN Stmt									{createNewListaChilds(); 	createNewNode("WHILE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				;
 
-ForStmt 		: FOR LPAREN ExprOpcional SEMICOLON ExprOpcional SEMICOLON ExprOpcional RPAREN Stmt	{createNewListaChilds(); createNewNode("FOR","",0,0); addNodeToChilds();
-					createNewNode("LPAREN","",0,0); 		addNodeToChilds();
-					createNewNode("ExprOpcional","",0,0); 	addChildsToNode(3);		addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0); 		addNodeToChilds();
-					createNewNode("ExprOpcional","",0,0);	addChildsToNode(2);		addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();
-					createNewNode("ExprOpcional","",0,0); 	addChildsToNode(1);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0); 		addNodeToChilds();
-					createNewNode("Stmt","",0,0); 			addChildsToNode(0);		addNodeToChilds();}
+ForStmt 		: FOR LPAREN ExprOpcional SEMICOLON ExprOpcional SEMICOLON ExprOpcional RPAREN Stmt	{createNewListaChilds(); createNewNode("FOR","",yylineno,yycolumn); addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn); 		addNodeToChilds();
+					createNewNode("ExprOpcional","",yylineno,yycolumn); 	addChildsToNode(3);		addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn); 		addNodeToChilds();
+					createNewNode("ExprOpcional","",yylineno,yycolumn);	addChildsToNode(2);		addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("ExprOpcional","",yylineno,yycolumn); 	addChildsToNode(1);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn); 		addNodeToChilds();
+					createNewNode("Stmt","",yylineno,yycolumn); 			addChildsToNode(0);		addNodeToChilds();}
 				;
 
-ReturnStmt 		: RETURN ExprOpcional SEMICOLON									{createNewListaChilds();	createNewNode("RETURN","",0,0);			addNodeToChilds();
-					createNewNode("ExprOpcional","",0,0);	addChildsToNode(0);		addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();}
+ReturnStmt 		: RETURN ExprOpcional SEMICOLON									{createNewListaChilds();	createNewNode("RETURN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ExprOpcional","",yylineno,yycolumn);	addChildsToNode(0);		addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();}
 				;
 
-BreakStmt 		: BREAK SEMICOLON												{createNewListaChilds(); 	createNewNode("BREAK","",0,0);			addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();}
+BreakStmt 		: BREAK SEMICOLON												{createNewListaChilds(); 	createNewNode("BREAK","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();}
 				;
 
-PrintStmt 		: PRINT LPAREN Expr OtraExpr RPAREN SEMICOLON					{createNewListaChilds();	createNewNode("PRINT","",0,0);			addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(1);		addNodeToChilds();
-					createNewNode("OtraExpr","",0,0);		addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();
-					createNewNode("SEMICOLON","",0,0);		addNodeToChilds();}
+PrintStmt 		: PRINT LPAREN Expr OtraExpr RPAREN SEMICOLON					{createNewListaChilds();	createNewNode("PRINT","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);		addNodeToChilds();
+					createNewNode("OtraExpr","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("SEMICOLON","",yylineno,yycolumn);		addNodeToChilds();}
 				;
 
-OtraExpr		: COMMA Expr OtraExpr											{createNewListaChilds(); 	createNewNode("COMMA","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(1);		addNodeToChilds();
-					createNewNode("OtraExpr","",0,0);		addChildsToNode(0);		addNodeToChilds();}
+OtraExpr		: COMMA Expr OtraExpr											{createNewListaChilds(); 	createNewNode("COMMA","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);		addNodeToChilds();
+					createNewNode("OtraExpr","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-ExprOpcional	: Expr															{createNewListaChilds(); 	createNewNode("Expr","",0,0);			addChildsToNode(0);	addNodeToChilds();}
+ExprOpcional	: Expr															{createNewListaChilds(); 	createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("LValue","",0,0);			addChildsToNode(1);	addNodeToChilds();
-					createNewNode("EQUAL","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Constant														{createNewListaChilds();	createNewNode("Constant","",0,0);		addChildsToNode(0);	addNodeToChilds();}	
-				| LValue														{createNewListaChilds(); 	createNewNode("LValue","",0,0);			addChildsToNode(0);	addNodeToChilds();}
-				| THIS															{createNewListaChilds(); 	createNewNode("THIS","",0,0);			addNodeToChilds();}
-				| Call															{createNewListaChilds(); 	createNewNode("Call","",0,0);			addChildsToNode(0);	addNodeToChilds();}
-				| LPAREN Expr RPAREN											{createNewListaChilds(); 	createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
-				| Expr SUM Expr													{createNewListaChilds(); 	createNewNode("Expr","",0,0);			addChildsToNode(1);	addNodeToChilds();
-					createNewNode("SUM","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr SUBTRACTION Expr											{createNewListaChilds(); 	createNewNode("Expr","",0,0);			addChildsToNode(1);	addNodeToChilds();
-					createNewNode("SUBTRACTION","",0,0);							addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr MULTIPLICATION Expr										{createNewListaChilds(); 	createNewNode("Expr","",0,0);			addChildsToNode(1);	addNodeToChilds();
-					createNewNode("MULTIPLICATION","",0,0);	addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr DIVISION Expr											{createNewListaChilds(); 	createNewNode("Expr","",0,0);			addChildsToNode(1);	addNodeToChilds();
-					createNewNode("DIVISION","",0,0);		addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr MODULE Expr												{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("MODULE","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| SUBTRACTION Expr	%prec NEGATION								{createNewListaChilds(); createNewNode("SUBTRACTION","",0,0);		addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}		
-				| Expr LESSTHAN Expr											{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("LESSTHAN","",0,0);		addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr LESSEQUALTHAN Expr										{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("LESSEQUALTHAN","",0,0);	addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr GREATERTHAN Expr											{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("GREATERTHAN","",0,0);						addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr GREATEREQUALTHAN Expr									{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("GREATEREQUALTHAN","",0,0);					addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr EEQUAL Expr												{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("EEQUAL","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr DISTINCT Expr											{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("DISTINCT","",0,0);		addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr AND Expr													{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("AND","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| Expr OR Expr													{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OR","",0,0);				addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| NEGATION Expr													{createNewListaChilds(); createNewNode("NEGATION","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);		addNodeToChilds();}
-				| READINTEGER LPAREN RPAREN										{createNewListaChilds(); createNewNode("READINTEGER","",0,0);		addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}	
-				| READLINE LPAREN RPAREN										{createNewListaChilds(); createNewNode("READLINE","",0,0);			addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
-				| NEW LPAREN ID RPAREN											{createNewListaChilds(); createNewNode("NEW","",0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("ID",$3,0,0);				addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
-				| NEWARRAY LPAREN Expr COMMA Type RPAREN						{createNewListaChilds(); createNewNode("NEWARRAY","",0,0);			addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(1);		addNodeToChilds();
-					createNewNode("COMMA","",0,0);			addNodeToChilds();
-					createNewNode("Type","",0,0);			addChildsToNode(0);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
+Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("LValue","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
+					createNewNode("EQUAL","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Constant														{createNewListaChilds();	createNewNode("Constant","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}	
+				| LValue														{createNewListaChilds(); 	createNewNode("LValue","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
+				| THIS															{createNewListaChilds(); 	createNewNode("THIS","",yylineno,yycolumn);			addNodeToChilds();}
+				| Call															{createNewListaChilds(); 	createNewNode("Call","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
+				| LPAREN Expr RPAREN											{createNewListaChilds(); 	createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
+				| Expr SUM Expr													{createNewListaChilds(); 	createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
+					createNewNode("SUM","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr SUBTRACTION Expr											{createNewListaChilds(); 	createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
+					createNewNode("SUBTRACTION","",yylineno,yycolumn);							addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr MULTIPLICATION Expr										{createNewListaChilds(); 	createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
+					createNewNode("MULTIPLICATION","",yylineno,yycolumn);	addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr DIVISION Expr											{createNewListaChilds(); 	createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
+					createNewNode("DIVISION","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr MODULE Expr												{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("MODULE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| SUBTRACTION Expr	%prec NEGATION								{createNewListaChilds(); createNewNode("SUBTRACTION","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}		
+				| Expr LESSTHAN Expr											{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("LESSTHAN","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr LESSEQUALTHAN Expr										{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("LESSEQUALTHAN","",yylineno,yycolumn);	addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr GREATERTHAN Expr											{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("GREATERTHAN","",yylineno,yycolumn);						addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr GREATEREQUALTHAN Expr									{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("GREATEREQUALTHAN","",yylineno,yycolumn);					addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr EEQUAL Expr												{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("EEQUAL","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr DISTINCT Expr											{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("DISTINCT","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr AND Expr													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("AND","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| Expr OR Expr													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OR","",yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| NEGATION Expr													{createNewListaChilds(); createNewNode("NEGATION","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
+				| READINTEGER LPAREN RPAREN										{createNewListaChilds(); createNewNode("READINTEGER","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}	
+				| READLINE LPAREN RPAREN										{createNewListaChilds(); createNewNode("READLINE","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
+				| NEW LPAREN ID RPAREN											{createNewListaChilds(); createNewNode("NEW","",yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$3,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
+				| NEWARRAY LPAREN Expr COMMA Type RPAREN						{createNewListaChilds(); createNewNode("NEWARRAY","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(1);		addNodeToChilds();
+					createNewNode("COMMA","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
 				;
 				
-LValue 			: ID															{createNewListaChilds(); createNewNode("ID",$1,0,0);				addNodeToChilds();}
-				| Expr DOT ID 													{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(0);	addNodeToChilds();
-					createNewNode("DOT","",0,0);			addNodeToChilds();
-					createNewNode("ID",$3,0,0);				addNodeToChilds();}
-				| Expr LBRACKET Expr RBRACKET									{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("LBRACKET","",0,0);		addNodeToChilds();
-					createNewNode("Expr","",0,0);			addChildsToNode(0);	addNodeToChilds();
-					createNewNode("RBRACKET","",0,0);		addNodeToChilds();}
+LValue 			: ID															{createNewListaChilds(); createNewNode("ID",$1,yylineno,yycolumn);				addNodeToChilds();}
+				| Expr DOT ID 													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(0);	addNodeToChilds();
+					createNewNode("DOT","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$3,yylineno,yycolumn);				addNodeToChilds();}
+				| Expr LBRACKET Expr RBRACKET									{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("LBRACKET","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();
+					createNewNode("RBRACKET","",yylineno,yycolumn);		addNodeToChilds();}
 				;
 
-Call 			: ID LPAREN Actuals RPAREN										{createNewListaChilds(); createNewNode("ID",$1,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Actuals","",0,0);		addChildsToNode(0);	addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
-				| Expr DOT ID LPAREN Actuals RPAREN								{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(0);	addNodeToChilds();
-					createNewNode("DOT","",0,0);			addNodeToChilds();
-					createNewNode("ID",$3,0,0);				addNodeToChilds();
-					createNewNode("LPAREN","",0,0);			addNodeToChilds();
-					createNewNode("Actuals","",0,0);		addNodeToChilds();
-					createNewNode("RPAREN","",0,0);			addNodeToChilds();}
+Call 			: ID LPAREN Actuals RPAREN										{createNewListaChilds(); createNewNode("ID",$1,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Actuals","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
+				| Expr DOT ID LPAREN Actuals RPAREN								{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(0);	addNodeToChilds();
+					createNewNode("DOT","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("ID",$3,yylineno,yycolumn);				addNodeToChilds();
+					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
+					createNewNode("Actuals","",yylineno,yycolumn);		addNodeToChilds();
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
 				;
 
-Actuals 		: Expr OtraExpr													{createNewListaChilds(); createNewNode("Expr","",0,0);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraExpr","",0,0);		addChildsToNode(0);	addNodeToChilds();}	
+Actuals 		: Expr OtraExpr													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraExpr","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}	
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("CONSINTEGERDEC",$1,0,0);	addNodeToChilds();}
-				| CONSINTEGERHEX												{createNewListaChilds(); createNewNode("CONSINTEGERHEX",$1,0,0);	addNodeToChilds();}
-				| CONSDOUBLEDEC													{createNewListaChilds(); createNewNode("CONSDOUBLEDEC",$1,0,0);		addNodeToChilds();}
-				| CONSDOUBLECIEN 												{createNewListaChilds(); createNewNode("CONSDOUBLECIEN",$1,0,0);	addNodeToChilds();}
-				| CONSBOOLEAN													{createNewListaChilds(); createNewNode("CONSBOOLEAN",$1,0,0);		addNodeToChilds();}
-				| CONSSTRING 													{createNewListaChilds(); createNewNode("CONSSTRING",$1,0,0);		addNodeToChilds();}
-				| TNULL															{createNewListaChilds(); createNewNode("TNULL","",0,0);				addNodeToChilds();}
+Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("CONSINTEGERDEC",$1,yylineno,yycolumn);	addNodeToChilds();}
+				| CONSINTEGERHEX												{createNewListaChilds(); createNewNode("CONSINTEGERHEX",$1,yylineno,yycolumn);	addNodeToChilds();}
+				| CONSDOUBLEDEC													{createNewListaChilds(); createNewNode("CONSDOUBLEDEC",$1,yylineno,yycolumn);		addNodeToChilds();}
+				| CONSDOUBLECIEN 												{createNewListaChilds(); createNewNode("CONSDOUBLECIEN",$1,yylineno,yycolumn);	addNodeToChilds();}
+				| CONSBOOLEAN													{createNewListaChilds(); createNewNode("CONSBOOLEAN",$1,yylineno,yycolumn);		addNodeToChilds();}
+				| CONSSTRING 													{createNewListaChilds(); createNewNode("CONSSTRING",$1,yylineno,yycolumn);		addNodeToChilds();}
+				| TNULL															{createNewListaChilds(); createNewNode("TNULL","",yylineno,yycolumn);				addNodeToChilds();}
 				;
 
 %%
@@ -427,7 +427,7 @@ void createNewNode(string pToken, string pValue, int pRow, int pColumn){
 }
 
 void addBlankToChilds(){		
-	pNodeParseTree nodonull = new NodeParseTree("<Sin hijos>","",0,0);
+	pNodeParseTree nodonull = new NodeParseTree("<Sin hijos>","",yylineno,yycolumn);
 	listChildsToAdd.at(listChildsToAdd.size()-1).push_back(nodonull);
 }
 
@@ -487,10 +487,10 @@ void printChilds(pNodeParseTree root, int tabs){
 
 		//Imprime el token del nodo actual y si tiene valor tambien lo imprime
 		if(child->value == "")	
-			nodeToPrint = nodeToPrint + child->token + "\n";		
+			nodeToPrint = nodeToPrint + child->token + " Linea: " /*+ std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+"\n";		
 			//cout << child->token << "\n";
 		else			
-			nodeToPrint = nodeToPrint + child->token + " Valor: " + child->value + "\n";
+			nodeToPrint = nodeToPrint + child->token + " Valor: " /*+ child->value + " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+ "\n";
 			//cout << child->token << "Valor: " << child->value << "\n";		
 
 		treeToPrint.push_back(nodeToPrint);	
