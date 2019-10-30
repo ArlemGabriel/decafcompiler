@@ -23,10 +23,13 @@ void printTree(pNodeParseTree root);
 void printChilds(pNodeParseTree root, int tabs);
 std::vector<string> treeToPrint;
 
+extern void addError(int pRow,int pColumn,string pError);
 extern int yylex(void);
 extern void printTable();
 extern int yyparse();
 extern FILE *yyin;
+extern int yylineno;
+extern int yycolumn;
 
 int yyerror(char *s);
 %}
@@ -390,8 +393,9 @@ Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("C
 
 //----------------------------- Funciones -----------------------------
 
-int yyerror(char *s){
-	printf("\nERROR\n");
+int yyerror(char *s){	
+	//printf("\nERROR\n");	
+	addError(yylineno,yycolumn,"Sintax error");
 	return 1;
 }
 

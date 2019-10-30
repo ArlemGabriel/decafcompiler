@@ -1,8 +1,8 @@
 class Hello {
 	void main() {
-		int a;
+		b=holamundo";
+		int a;()
 		string b;
 		a=25;
-		b="holamundo";
   }
 }
