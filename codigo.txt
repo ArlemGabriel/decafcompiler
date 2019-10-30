@@ -1,8 +1,8 @@
-class Hello {
-	void main() {
-		b=holamundo";
-		int a;()
-		string b;
+int Hello(){
+    if(True){
+        int a;
 		a=25;
-  }
+    }else{
+        Print("Hola Mundo");    
+    }
 }

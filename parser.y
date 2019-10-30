@@ -69,7 +69,6 @@ int yyerror(char *s);
 %left DOT LBRACKET
 
 %nonassoc COMMA
-%nonassoc ELSE
 %nonassoc LPAREN LBRACE
 %nonassoc ID
 %nonassoc EQUAL 
