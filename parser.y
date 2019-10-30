@@ -487,10 +487,10 @@ void printChilds(pNodeParseTree root, int tabs){
 
 		//Imprime el token del nodo actual y si tiene valor tambien lo imprime
 		if(child->value == "")	
-			nodeToPrint = nodeToPrint + child->token + " Linea: " /*+ std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+"\n";		
+			nodeToPrint = nodeToPrint + child->token /*+ " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+"\n";		
 			//cout << child->token << "\n";
 		else			
-			nodeToPrint = nodeToPrint + child->token + " Valor: " /*+ child->value + " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+ "\n";
+			nodeToPrint = nodeToPrint + child->token + " Valor: " + child->value /*+ " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+ "\n";
 			//cout << child->token << "Valor: " << child->value << "\n";		
 
 		treeToPrint.push_back(nodeToPrint);	
