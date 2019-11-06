@@ -5,6 +5,7 @@
     #include "funciones.h"
     #include "parser.tab.h"
     int yycolumn = 1;
+    bool flagLexicalError = false;
 %}
 ESCAPEERROR \"[^"\\\n]*((?:\\[^nt"][^"\\]*)|(?:\\\\[^"\\\n]*))*\"
 LQUOTEERROR [^"\\]*((?:\\[nt"][^"\\]*)|(?:\\\\[^"\\]*))*\"$
@@ -131,14 +132,14 @@ INVALIDCHAR ['|`|@|#|^|&|"|"|\\|:|?|_|$|¡|¿|´]{1}|[;]{2,}
 {RPAREN} {addRow(yylineno,yycolumn,"RPAREN","");yycolumn+=yyleng;return RPAREN;}
 {LBRACE} {addRow(yylineno,yycolumn,"LBRACE","");yycolumn+=yyleng;return LBRACE;}
 {RBRACE} {addRow(yylineno,yycolumn,"RBRACE","");yycolumn+=yyleng;return RBRACE;}
-{ESCAPEERROR} {addError(yylineno,yycolumn,"Invalid scape secuence");}
-{LQUOTEERROR} {addError(yylineno,yycolumn,"Missing left quote");}
-{RQUOTEERROR} {addError(yylineno,yycolumn,"Missing right quote");}
+{ESCAPEERROR} {addError(yylineno,yycolumn,"Invalid scape secuence");flagLexicalError = true;}
+{LQUOTEERROR} {addError(yylineno,yycolumn,"Missing left quote");flagLexicalError = true;}
+{RQUOTEERROR} {addError(yylineno,yycolumn,"Missing right quote");flagLexicalError = true;}
 {LINEBREAK} {yycolumn=1;}
 {BLANKSPACE} {yycolumn+=1;}
 {TAB} {yycolumn+=1;}
-{INVALIDCHAR}   {addError(yylineno,yycolumn,"Invalid character");}
-{INVALIDID} {addError(yylineno,yycolumn,"Invalid Identifier");}
-{WRONGLONGID} {addError(yylineno,yycolumn,"Invalid length of identifier");}
+{INVALIDCHAR}   {addError(yylineno,yycolumn,"Invalid character");flagLexicalError = true;}
+{INVALIDID} {addError(yylineno,yycolumn,"Invalid Identifier");flagLexicalError = true;}
+{WRONGLONGID} {addError(yylineno,yycolumn,"Invalid length of identifier");flagLexicalError = true;}
 
 %%

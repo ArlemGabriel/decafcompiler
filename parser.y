@@ -6,6 +6,7 @@ using namespace std;
 
 typedef NodeParseTree * pNodeParseTree;
 int contNodos=0;
+bool flagSintaxError = false;
 
 
 pNodeParseTree nodo = new NodeParseTree();
@@ -30,6 +31,7 @@ extern int yyparse();
 extern FILE *yyin;
 extern int yylineno;
 extern int yycolumn;
+extern bool flagLexicalError;
 
 int yyerror(char *s);
 %}
@@ -48,9 +50,9 @@ int yyerror(char *s);
 %token LBRACE RBRACE
 
 //Datos
-%token <sval> ID 
+%token <sval> ID
 %token <sval> CONSINTEGERDEC
-%token <sval> CONSINTEGERHEX 
+%token <sval> CONSINTEGERHEX
 %token <sval> CONSDOUBLEDEC
 %token <sval> CONSDOUBLECIEN
 %token <sval> CONSSTRING
@@ -71,41 +73,41 @@ int yyerror(char *s);
 %nonassoc COMMA
 %nonassoc LPAREN LBRACE
 %nonassoc ID
-%nonassoc EQUAL 
-%nonassoc LESSTHAN LESSEQUALTHAN GREATEREQUALTHAN GREATERTHAN 
+%nonassoc EQUAL
+%nonassoc LESSTHAN LESSEQUALTHAN GREATEREQUALTHAN GREATERTHAN
 %nonassoc VOID CLASS INTERFACE DOUBLE INT STRING BOOL
 
 
 %%
 //----------------------------- Producciones -----------------------------
-Program			: Decl															{createNewListaChilds();	createNewNode("Decl","",yylineno,yycolumn);	addChildsToNode(0);}		
+Program			: Decl															{createNewListaChilds();	createNewNode("Decl","",yylineno,yycolumn);	addChildsToNode(0);}
 				;
-		
-Decl 			: VariableDecl OtraDecl											{createNewListaChilds();	createNewNode("VariableDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();													
-					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+
+Decl 			: VariableDecl OtraDecl											{createNewListaChilds();	createNewNode("VariableDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				| FunctionDecl OtraDecl											{createNewListaChilds(); 	createNewNode("FunctionDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				| ClassDecl OtraDecl											{createNewListaChilds(); 	createNewNode("ClassDecl","",yylineno,yycolumn);		addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				| InterfaceDecl OtraDecl										{createNewListaChilds(); 	createNewNode("InterfaceDecl","",yylineno,yycolumn);	addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				;
 
 OtraDecl		: Decl OtraDecl													{createNewListaChilds();	createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}		
+					createNewNode("OtraDecl","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
 VariableDecl 	: Variable SEMICOLON											{createNewListaChilds(); 	createNewNode("Variable","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();
 					createNewNode("SEMICOLON",";",yylineno,yycolumn);		addNodeToChilds();}
-				;							
-
-Variable 		: Type ID														{createNewListaChilds();	createNewNode("Type","",yylineno,yycolumn); 			addChildsToNode(0);	addNodeToChilds();
-					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();}		
 				;
 
-Type 			: INT															{createNewListaChilds();	createNewNode("INT","",yylineno,yycolumn);			addNodeToChilds();}		
-				| DOUBLE														{createNewListaChilds(); 	createNewNode("DOUBLE","",yylineno,yycolumn);			addNodeToChilds();}		
+Variable 		: Type ID														{createNewListaChilds();	createNewNode("Type","",yylineno,yycolumn); 			addChildsToNode(0);	addNodeToChilds();
+					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();}
+				;
+
+Type 			: INT															{createNewListaChilds();	createNewNode("INT","",yylineno,yycolumn);			addNodeToChilds();}
+				| DOUBLE														{createNewListaChilds(); 	createNewNode("DOUBLE","",yylineno,yycolumn);			addNodeToChilds();}
 				| BOOL															{createNewListaChilds(); 	createNewNode("BOOL","",yylineno,yycolumn);			addNodeToChilds();}
 				| STRING														{createNewListaChilds();	createNewNode("STRING","",yylineno,yycolumn);			addNodeToChilds();}
 				| ID															{createNewListaChilds(); 	createNewNode("ID",$1,yylineno,yycolumn);				addNodeToChilds();}
@@ -117,7 +119,7 @@ Type 			: INT															{createNewListaChilds();	createNewNode("INT","",yyli
 FunctionDecl 	: Type ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(2); addNodeToChilds();
 					createNewNode("ID",$2,yylineno,yycolumn);				addNodeToChilds();
 					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
-					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();					
+					createNewNode("Formals","",yylineno,yycolumn);		addChildsToNode(1);		addNodeToChilds();
 					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();
 					createNewNode("StmtBlock","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				| VOID ID LPAREN Formals RPAREN StmtBlock						{createNewListaChilds(); 	createNewNode("VOID","",yylineno,yycolumn);			addNodeToChilds();
@@ -207,7 +209,7 @@ BlockVariables	: VariableDecl BlockVariables									{createNewListaChilds();	cr
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
-BlockStmts		: Stmt BlockStmts												{createNewListaChilds(); 	createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();	
+BlockStmts		: Stmt BlockStmts												{createNewListaChilds(); 	createNewNode("Stmt","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
 					createNewNode("BlockStmts","",yylineno,yycolumn);		addChildsToNode(0);		addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
@@ -284,7 +286,7 @@ ExprOpcional	: Expr															{createNewListaChilds(); 	createNewNode("Expr"
 Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("LValue","",yylineno,yycolumn);			addChildsToNode(1);	addNodeToChilds();
 					createNewNode("EQUAL","",yylineno,yycolumn);			addNodeToChilds();
 					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
-				| Constant														{createNewListaChilds();	createNewNode("Constant","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}	
+				| Constant														{createNewListaChilds();	createNewNode("Constant","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
 				| LValue														{createNewListaChilds(); 	createNewNode("LValue","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
 				| THIS															{createNewListaChilds(); 	createNewNode("THIS","",yylineno,yycolumn);			addNodeToChilds();}
 				| Call															{createNewListaChilds(); 	createNewNode("Call","",yylineno,yycolumn);			addChildsToNode(0);	addNodeToChilds();}
@@ -307,7 +309,7 @@ Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("
 					createNewNode("MODULE","",yylineno,yycolumn);			addNodeToChilds();
 					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				| SUBTRACTION Expr	%prec NEGATION								{createNewListaChilds(); createNewNode("SUBTRACTION","",yylineno,yycolumn);		addNodeToChilds();
-					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}		
+					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				| Expr LESSTHAN Expr											{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
 					createNewNode("LESSTHAN","",yylineno,yycolumn);		addNodeToChilds();
 					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
@@ -336,7 +338,7 @@ Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("
 					createNewNode("Expr","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();}
 				| READINTEGER LPAREN RPAREN										{createNewListaChilds(); createNewNode("READINTEGER","",yylineno,yycolumn);		addNodeToChilds();
 					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
-					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}	
+					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
 				| READLINE LPAREN RPAREN										{createNewListaChilds(); createNewNode("READLINE","",yylineno,yycolumn);			addNodeToChilds();
 					createNewNode("LPAREN","",yylineno,yycolumn);			addNodeToChilds();
 					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
@@ -351,7 +353,7 @@ Expr 			: LValue EQUAL Expr												{createNewListaChilds(); 	createNewNode("
 					createNewNode("Type","",yylineno,yycolumn);			addChildsToNode(0);		addNodeToChilds();
 					createNewNode("RPAREN","",yylineno,yycolumn);			addNodeToChilds();}
 				;
-				
+
 LValue 			: ID															{createNewListaChilds(); createNewNode("ID",$1,yylineno,yycolumn);				addNodeToChilds();}
 				| Expr DOT ID 													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(0);	addNodeToChilds();
 					createNewNode("DOT","",yylineno,yycolumn);			addNodeToChilds();
@@ -375,7 +377,7 @@ Call 			: ID LPAREN Actuals RPAREN										{createNewListaChilds(); createNewNo
 				;
 
 Actuals 		: Expr OtraExpr													{createNewListaChilds(); createNewNode("Expr","",yylineno,yycolumn);				addChildsToNode(1);	addNodeToChilds();
-					createNewNode("OtraExpr","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}	
+					createNewNode("OtraExpr","",yylineno,yycolumn);		addChildsToNode(0);	addNodeToChilds();}
 				|																%prec EQUAL {createNewListaChilds();addBlankToChilds();}
 				;
 
@@ -392,9 +394,10 @@ Constant 		: CONSINTEGERDEC												{createNewListaChilds(); createNewNode("C
 
 //----------------------------- Funciones -----------------------------
 
-int yyerror(char *s){	
-	//printf("\nERROR\n");	
+int yyerror(char *s){
+	//printf("\nERROR\n");
 	addError(yylineno,yycolumn,"Sintax error");
+  flagSintaxError = true;
 	return 1;
 }
 
@@ -413,8 +416,12 @@ int main(int argcount, char **argvector)
         yyin=stdin;
     }
 	yyparse();
-	printTable();
-	printTree(nodo);
+  if (flagLexicalError == false && flagSintaxError == false){
+      printTable();
+      printTree(nodo);
+  }else{
+      printTable();
+  }
 }
 
 
@@ -422,40 +429,42 @@ void createNewListaChilds(){
 	listChildsToAdd.push_back(childsToAdd);
 }
 
-void createNewNode(string pToken, string pValue, int pRow, int pColumn){		
-	nodo= newNode(pToken, pValue, pRow, pColumn);		
+void createNewNode(string pToken, string pValue, int pRow, int pColumn){
+	nodo= newNode(pToken, pValue, pRow, pColumn);
 }
 
-void addBlankToChilds(){		
+void addBlankToChilds(){
 	pNodeParseTree nodonull = new NodeParseTree("<Sin hijos>","",yylineno,yycolumn);
 	listChildsToAdd.at(listChildsToAdd.size()-1).push_back(nodonull);
 }
 
-void addNodeToChilds(){							
+void addNodeToChilds(){
 		listChildsToAdd.at(listChildsToAdd.size()-1).push_back(nodo);
-}	
+}
 
-void addChildsToNode(int offset){		
+void addChildsToNode(int offset){
 	int position = (listChildsToAdd.size()-2)-offset;
 	if(position>=0){
 		for(int i=0;i<listChildsToAdd.at(position).size();i++)
 		{
 			pNodeParseTree child = listChildsToAdd.at(position).at(i);
-			nodo->addChild(child);	
+			nodo->addChild(child);
 		}
 		listChildsToAdd.erase(listChildsToAdd.begin() + position);
 	}
 }
 
 
-void printTree(pNodeParseTree root){	
-	cout << "Program" << "\n";
-	cout << " -" << root->token << "\n";
+void printTree(pNodeParseTree root){
+  if(flagSintaxError == false){
+      cout << "Program" << "\n";
+    	cout << " -" << root->token << "\n";
 
-	printChilds(root, 1);
-	for(int i=treeToPrint.size();i>0;i--){
-		cout<<treeToPrint[i];
-	}
+    	printChilds(root, 1);
+    	for(int i=treeToPrint.size();i>0;i--){
+    		cout<<treeToPrint[i];
+    	}
+  }
 }
 
 void printChilds(pNodeParseTree root, int tabs){
@@ -463,21 +472,21 @@ void printChilds(pNodeParseTree root, int tabs){
     {
 		//SI funciona
 		//Agarra en hijo del parametro nodo root
-		pNodeParseTree child = root->childs.at(i);	
-		
+		pNodeParseTree child = root->childs.at(i);
+
 		//Si tiene otros hijos los imprime
 		if(child->childs.size()>0)
 			printChilds(child,tabs+1);
 
 		string nodeToPrint="";
-		//Se cuentan la cantidad de tabs necesarios		
+		//Se cuentan la cantidad de tabs necesarios
 		int contHijos=0;
 		for(int j=0;j<tabs;j++){
 			if(j<15)
 				nodeToPrint=nodeToPrint+" ";
-			else							
-				contHijos++;			
-		}				
+			else
+				contHijos++;
+		}
 
 		nodeToPrint=nodeToPrint+"-";
 		//Por lo grande del arbol se muestra con numeros en lugar de tabs
@@ -486,14 +495,14 @@ void printChilds(pNodeParseTree root, int tabs){
 			//cout << "H(" << contHijos << ") ";
 
 		//Imprime el token del nodo actual y si tiene valor tambien lo imprime
-		if(child->value == "")	
-			nodeToPrint = nodeToPrint + child->token /*+ " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+"\n";		
+		if(child->value == "")
+			nodeToPrint = nodeToPrint + child->token /*+ " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+"\n";
 			//cout << child->token << "\n";
-		else			
+		else
 			nodeToPrint = nodeToPrint + child->token + " Valor: " + child->value /*+ " Linea: " + std::to_string(child->row) + " Columna: "+ std::to_string(child->column)*/+ "\n";
-			//cout << child->token << "Valor: " << child->value << "\n";		
+			//cout << child->token << "Valor: " << child->value << "\n";
 
-		treeToPrint.push_back(nodeToPrint);	
+		treeToPrint.push_back(nodeToPrint);
 	}
 
 }
